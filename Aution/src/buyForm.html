@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/dist/output.css" rel="stylesheet" />
+
+</head>
+<style>
+    .buyForm {
+        max-width: 670px;
+        min-width: 300px;
+        max-height: calc(100% - 64px);
+    }
+    .textColor {
+        color: #7ab45d;
+    }
+
+    .bgBtn {
+        background-color: #7ab45d;
+    }
+
+</style>
+
+<body>
+    <div class="rounded-2xl container m-auto buyForm shadow-2xl">
+        <div class="flex justify-between pt-4">
+            <img src="https://auction.io/assets/svg/register_popup.svg" class="w-full" alt="">
+            <div class="w-full">
+                <h2 class="text-center text-xl mb-5 font-bold">Basic Info</h2>
+                <div class="flex justify-between p-6">
+                    <div class="w-7 mx-4 text-center text-white h-6 p-2 rounded-full bg-green-800 relative">
+                        <span class="absolute top-0 left-2">1</span>
+                    </div>
+                    <hr class="w-full mt-3">
+                    <div class="w-7 text-center text-white h-6 p-2 rounded-full mx-4 bg-gray-600 relative">
+                        <span class="absolute top-0 left-2">2</span>
+                    </div>
+                </div>
+                <p class="text-center text-gray-400">
+                    Please fill in the below details to proceed with purchase!
+                </p>
+            </div>
+        </div>
+        <div class="overscroll-y-auto">
+            <form action="" class=" p-4" aria-colspan="">
+                <div class="flex justify-between my-4">
+                    <input type="text" placeholder="Enter your first name" class="p-4 w-full border mx-2 rounded-lg"
+                        required>
+                    <input type="text" placeholder="Enter your last name" class="p-4 w-full border mx-2 rounded-lg"
+                        required>
+                </div>
+                <div class="flex justify-between my-4">
+                    <input type="text" value="+1" class="p-4 w-full border mx-2 rounded-lg" required>
+                    <input type="text" placeholder="Enter your business name" class="p-4 w-full border mx-2 rounded-lg"
+                        required>
+                </div>
+                <div class="flex justify-between my-4">
+                    <input type="text" placeholder="Enter your website" class="p-4 w-full border mx-2 rounded-lg" required>
+                    <input type="text" placeholder="Enter your Email address" class="p-4 w-full border mx-2 rounded-lg"
+                        required>
+                </div>
+                <div class="flex justify-between my-4">
+                    <input type="password" placeholder="Enter your password" class="p-4 w-full border mx-2 rounded-lg"
+                        required>
+                    <input type="password" placeholder="Confirm password" class="p-4 w-full border mx-2 rounded-lg"
+                        required>
+                </div>
+                <div class="flex justify-between my-4">
+                    <input type="password" placeholder="Enter your password" class="p-4 w-full border mx-2 rounded-lg"
+                        required>
+                    <input type="password" placeholder="Confirm password" class="p-4 w-full border mx-2 rounded-lg"
+                        required>
+                </div>
+                <div class="flex justify-between my-4">
+                    <input type="text" placeholder="Enter your website" class="p-4 w-full border mx-2 rounded-lg" required>
+                    <select name="" id="" class="p-4 w-full border mx-2 rounded-lg">
+                        <option>Select your country</option>
+                    </select>
+                </div>
+                <div class="flex justify-between my-4">
+                    <select name="" id="" class="p-4 w-full border mx-2 rounded-lg">
+                        <option>Select your State</option>
+    
+                    </select>
+                    <input type="text" placeholder="Enter your city" class="p-4 w-full border mx-2 rounded-lg" required>
+                </div>
+                <div class="flex justify-between my-4">
+                    <input type="text" placeholder="Enter your zipcode" class="p-4 w-1/2 border mx-2 rounded-lg" required>
+                </div>
+                <div class="flex items-center mx-2">
+                    <input type="checkbox" class="h-4 w-4 mr-4 accent-green-600  border-green-600">
+                    <button class="hover:bg-gray-100 p-2 rounded-lg">
+                        <p>I agree to accept the <span class="textColor">Term & Conditions</span></p>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

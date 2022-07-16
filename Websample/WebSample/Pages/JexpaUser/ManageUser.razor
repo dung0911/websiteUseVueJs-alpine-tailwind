@@ -1,0 +1,459 @@
+@page "/manage-users"
+<PageTitle Title="CUser - Manage Users" />
+
+@using Jexpa.Core
+@using Jexpa.Core.Legacy
+@using Jexpa.Model.Entity
+@using WebSample.Data
+@using WebSample.Components
+
+<h1>CUser</h1>
+
+<p>This component demonstrates fetching users from CUser.</p>
+
+@if (userList.Count <= 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="float-right pr-2 pb-2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+            @onclick="() => StartAddRow()">
+            <span class="text-white"><i class="fas fa-plus"></i></span>
+        </button>
+    </div>
+
+    <TableTemplate Columns="columnNames" Items="userList" Context="user" TItem="CUser">
+        <RowTemplate>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+               @user.GetID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">Brand ID</span>@user.GetBrandID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">Username</span>@user.GetUsername()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">Password</span>@user.GetPassword()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">Email</span>@user.GetEmailAddress()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">Nickname</span>@user.GetNickName()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">Package ID</span>@user.GetPackageID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">Status</span>@user.GetStatus()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">Actions</span>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                    @onclick="() => StartEditRow(user)">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                    @onclick="() => DeleteUser(user)">
+                    <span class="oi oi-delete"></span>
+                </button>
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+    <ModalTemplate ModalTitle="Add User" IsModalVisible="IsAddMode" OnCloseCallBack="ResetModalMode" Item="@userModel" Context="addUserModel">
+        <BodyTemplate>
+            <EditForm id="add-user-form" Model="@addUserModel" class="w-[90%]" OnValidSubmit="@HandleValidAddSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                @*ID*@
+                <div class="flex flex-col pb-2">
+                    <label for="newId" class="text-md text-gray-600">ID:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                @*Brand ID*@
+                <div class="flex flex-col pb-2">
+                    <label for="newBrandID" class="text-md text-gray-600">Brand ID:</label>
+                    <p>This field is auto-selected. It should select default Brand ID.</p>
+                </div>
+                @*Username*@
+                <div class="flex flex-col pb-2">
+                    <label for="newUsername" class="text-md text-gray-600">Username*:</label>
+
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsAddMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="add-user-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+
+    <ModalTemplate ModalTitle="Edit User" IsModalVisible="IsEditMode" OnCloseCallBack="ResetModalMode" Item="@userModel" Context="editUserModel">
+        <BodyTemplate>
+            <EditForm id="edit-user-form" Model="@editUserModel" class="w-[90%]" OnValidSubmit="@HandleValidEditSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                @*ID*@
+                <div class="flex flex-col pb-2">
+                    <label for="id" class="text-md text-gray-600">ID:</label>
+                    <input type="number" class="" @bind-value="userModel.Id" disabled>
+                </div>
+                @*BrandID*@
+                <div class="flex flex-col pb-2">
+                    <label for="brandId" class="text-md text-gray-600">Brand ID:</label>
+                    <input type="number" class="" @bind-value="userModel.BrandId" disabled>
+                </div>
+                @*UserCode*@
+                <div class="flex flex-col pb-2">
+                    <label for="userCode" class="text-md text-gray-600">User Code:</label>
+                    <input type="text" class="" @bind-value="userModel.UserCode" disabled>
+                </div>
+                @*Username*@
+                <div class="flex flex-col pb-2">
+                    <label for="username" class="text-md text-gray-600">Username:</label>
+                    <input type="text" class="" @bind-value="userModel.Username" disabled>
+                </div>
+                @*Password*@
+                <div class="flex flex-col pb-2">
+                    <label for="password" class="text-md text-gray-600">Password:</label>
+                    <input type="password" class="" @bind-value="userModel.Password" autocomplete="off">
+                </div>
+                @*Passphrase*@
+                <div class="flex flex-col pb-2">
+                    <label for="passphrase" class="text-md text-gray-600">Passphrase:</label>
+                    <input type="text" class="" @bind-value="userModel.Passphrase" autocomplete="off">
+                </div>
+                @*IsUserVerified*@
+                <div class="flex flex-row pb-2">
+                    <label for="isUserVerified" class="text-md text-gray-600">Is User Verified:</label>
+                    <JexpaCheckBox IsChecked="userModel.IsUserVerified"
+                               OnChangeCallBack="(value) => {userModel.IsUserVerified = value;}"></JexpaCheckBox>
+                </div>
+                @*UserType*@
+                <div class="flex flex-col pb-2">
+                    <label for="userType" class="text-md text-gray-600">User Type:</label>
+                    <select class="" @bind="userModel.UserType">
+                        @foreach (UserType userType in (UserType[])Enum.GetValues(typeof(UserType)))
+                    {
+                        <option value="@userType">@userType</option>
+                    }
+                </select>
+            </div>
+            @*Status*@
+            <div class="flex flex-col pb-2">
+                <label for="userStatus" class="">User Status:</label>
+                <select class="" @bind="userModel.Status">
+                    @foreach (UserStatus userStatus in (UserStatus[])Enum.GetValues(typeof(UserStatus)))
+                    {
+                        <option value="@userStatus">@userStatus</option>
+                    }
+                </select>
+            </div>
+            @*IsEmailVerified*@
+            <div class="flex flex-row pb-2">
+                <label for="isEmailVerified" class="text-md text-gray-600">Is Email Verified:</label>
+                <JexpaCheckBox IsChecked="userModel.IsEmailVerified"
+                               OnChangeCallBack="(value) => {userModel.IsEmailVerified = value;}"></JexpaCheckBox>
+            </div>
+            @*EmailAddress*@
+            <div class="flex flex-col pb-2">
+                <label for="email" class="text-md text-gray-600">Email Address:</label>
+                <input type="email" class="" @bind-value="userModel.Email" autocomplete="off">
+            </div>
+            @*RiskMark*@
+            <div class="flex flex-col pb-2">
+                <label for="riskMark" class="text-md text-gray-600">Risk Mark:</label>
+                <input type="number" class="" @bind-value="userModel.RiskMark" autocomplete="off">
+            </div>
+            @*FirstName*@
+            <div class="flex flex-col pb-2">
+                <label for="firstName" class="text-md text-gray-600">First Name:</label>
+                <input type="text" class="" @bind-value="userModel.FirstName" autocomplete="off">
+            </div>
+            @*LastName*@
+            <div class="flex flex-col pb-2">
+                <label for="lastName" class="text-md text-gray-600">Last Name:</label>
+                <input type="text" class="" @bind-value="userModel.LastName" autocomplete="off">
+            </div>
+            @*Nickname*@
+            <div class="flex flex-col pb-2">
+                <label for="nickname" class="text-md text-gray-600">Nickname:</label>
+                <input type="text" class="" @bind-value="userModel.NickName" autocomplete="off">
+            </div>
+            @*Avatar*@
+            <div class="flex flex-col pb-2">
+                <label for="avatar" class="text-md text-gray-600">Avatar:</label>
+                <input type="text" class="" @bind-value="userModel.Avatar" autocomplete="off">
+            </div>
+            @*Phone1*@
+            <div class="flex flex-col pb-2">
+                <label for="phone1" class="text-md text-gray-600">Phone 1:</label>
+                <input type="tel" class="" @bind-value="userModel.Phone1" autocomplete="off">
+            </div>
+            @*Phone2*@
+            <div class="flex flex-col pb-2">
+                <label for="phone2" class="text-md text-gray-600">Phone 2:</label>
+                <input type="tel" class="" @bind-value="userModel.Phone2" autocomplete="off">
+            </div>
+            @*Phone3*@
+            <div class="flex flex-col pb-2">
+                <label for="phone3" class="text-md text-gray-600">Phone 3:</label>
+                <input type="tel" class="" @bind-value="userModel.Phone3" autocomplete="off">
+            </div>
+            @*Website*@
+            <div class="flex flex-col pb-2">
+                <label for="website" class="text-md text-gray-600">Website:</label>
+                <input type="text" class="" @bind-value="userModel.Website" autocomplete="off">
+            </div>
+            @*TimezoneId*@
+            <div class="flex flex-col pb-2">
+                <label for="timezoneId" class="text-md text-gray-600">Timezone ID:</label>
+                <input type="number" class="" @bind-value="userModel.TimezoneId" autocomplete="off">
+            </div>
+            @*PackageId*@
+            <div class="flex flex-col pb-2">
+                <label for="packageId" class="text-md text-gray-600">Package ID:</label>
+                <input type="number" class="" @bind-value="userModel.PackageId" autocomplete="off">
+            </div>
+            @*TrackingLevel*@
+            <div class="flex flex-col pb-2">
+                <label for="trackingLevel" class="text-md text-gray-600">Tracking Level:</label>
+                <input type="number" class="" @bind-value="userModel.TrackingLevel" autocomplete="off">
+            </div>
+            @*MaxAllowedDeviceNumber*@
+            <div class="flex flex-col pb-2">
+                <label for="maxAllowedDeviceNumber" class="text-md text-gray-600">Max Allowed Device Number:</label>
+                <input type="number" class="" @bind-value="userModel.MaxAllowedDeviceNumber" autocomplete="off">
+            </div>
+            @*ThemeStyle*@
+            <div class="flex flex-col pb-2">
+                <label for="themeStyle" class="text-md text-gray-600">Theme Style:</label>
+                <input type="text" class="" @bind-value="userModel.ThemeStyle" autocomplete="off">
+            </div>
+            @*IsSignInDetectionEnabled*@
+            <div class="flex flex-col pb-2">
+                <label for="isSignInDetectionEnabled" class="text-md text-gray-600">
+                    Is Sign In Detection
+                    Enabled:
+                </label>
+                <JexpaCheckBox IsChecked="userModel.IsSignInDetectionEnabled"
+                               OnChangeCallBack="(value) => {userModel.IsSignInDetectionEnabled = value;}"></JexpaCheckBox>
+            </div>
+            @*ExpiryDate*@
+            <div class="flex flex-col pb-2">
+                <label for="expiryDate" class="text-md text-gray-600">Expiry Date:</label>
+                <input type="datetime" class="" @bind-value="userModel.ExpiryDate" autocomplete="off">
+            </div>
+            @*LastModifiedDate*@
+            <div class="flex flex-col pb-2">
+                <label for="lastModifiedDate" class="text-md text-gray-600">Last Modified Date:</label>
+                <input type="datetime" class="" @bind-value="userModel.LastModifiedDate" disabled>
+            </div>
+            @*CreatedDate*@
+            <div class="flex flex-col pb-2">
+                <label for="createdDate" class="text-md text-gray-600">Created Date:</label>
+                <input type="datetime" class="" @bind-value="userModel.CreatedDate" disabled>
+            </div>
+        </EditForm>
+    </BodyTemplate>
+    <FooterTemplate>
+        <div class="flex justify-end pt-2 space-x-14">
+            <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsEditMode = false; }">
+                Cancel
+            </button>
+            <button type="submit" form="edit-user-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                Confirm
+            </button>
+        </div>
+    </FooterTemplate>
+</ModalTemplate>
+}
+
+@code {
+    private List<CUser> userList = new();
+    private List<string> columnNames = new()
+        {
+            "ID",
+            "Brand ID",
+            "Username",
+            "Password",
+            "Email",
+            "Nickname",
+            "Package ID",
+            "Status",
+            "Actions"
+        };
+
+    private ModalMode _modalMode { get; set; } = ModalMode.DEFAULT;
+    private UserModel userModel = new();
+    private CUser selectedUser = new();
+    private bool IsEditMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.EDIT)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.EDIT;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private bool IsAddMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.ADD)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.ADD;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private void ResetModalMode()
+    {
+        _modalMode = ModalMode.DEFAULT;
+    }
+
+    private void StartEditRow(CUser aUser)
+    {
+        selectedUser = aUser;
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            var userType = aUser.GetUserType();
+            var userStatus = aUser.GetStatus();
+            userModel = new()
+                {
+                    Id = aUser.GetID(),
+                    BrandId = aUser.GetBrandID(),
+                    UserCode = aUser.GetUserCode(),
+                    Username = aUser.GetUsername(),
+                    Password = aUser.GetPassword(),
+                    Passphrase = aUser.GetPassphrase(),
+                    UserType = userType != null ? (UserType)userType : UserType.Unset,
+                    IsEmailVerified = aUser.GetIsEmailAddressVerified() ?? false,
+                    IsUserVerified = aUser.GetIsUserVerified() ?? false,
+                    RiskMark = aUser.GetRiskMark(),
+                    Status = userStatus != null ? (UserStatus)userStatus : UserStatus.Inactive,
+                    LastModifiedDate = aUser.GetModifiedDate(),
+                    CreatedDate = aUser.GetCreatedDate(),
+                    FirstName = aUser.GetFirstName(),
+                    LastName = aUser.GetLastName(),
+                    NickName = aUser.GetNickName(),
+                    Avatar = aUser.GetAvatar(),
+                    Email = aUser.GetEmailAddress(),
+                    Phone1 = aUser.GetPhoneNumber1(),
+                    Phone2 = aUser.GetPhoneNumber2(),
+                    Phone3 = aUser.GetPhoneNumber3(),
+                    Website = aUser.GetWebsite(),
+                    TimezoneId = aUser.GetTimezoneID(),
+                    PackageId = aUser.GetPackageID(),
+                    TrackingLevel = aUser.GetTrackingLevel(),
+                    MaxAllowedDeviceNumber = aUser.GetMaxAllowedDeviceNumber(),
+                    ThemeStyle = aUser.GetThemeStyle(),
+                    IsSignInDetectionEnabled = aUser.GetEnableSignInDetection() ?? false,
+                    ExpiryDate = aUser.GetExpiryDate(),
+                };
+            IsEditMode = true;
+        }
+    }
+    private void HandleValidEditSubmit()
+    {
+        selectedUser.SetPassword(userModel.Password);
+        selectedUser.SetPassphrase(userModel.Passphrase);
+        selectedUser.SetUserType((short)userModel.UserType);
+        selectedUser.SetIsEmailAddressVerified(userModel.IsEmailVerified);
+        selectedUser.SetIsUserVerified(userModel.IsUserVerified);
+        selectedUser.SetRiskMark(userModel.RiskMark);
+        selectedUser.SetStatus((short)userModel.Status);
+        selectedUser.SetFirstName(userModel.FirstName);
+        selectedUser.SetLastName(userModel.LastName);
+        selectedUser.SetNickName(userModel.NickName);
+        selectedUser.SetAvatar(userModel.Avatar);
+        selectedUser.SetEmailAddress(userModel.Email);
+        selectedUser.SetPhoneNumber1(userModel.Phone1);
+        selectedUser.SetPhoneNumber2(userModel.Phone2);
+        selectedUser.SetPhoneNumber3(userModel.Phone3);
+        selectedUser.SetWebsite(userModel.Website);
+        selectedUser.SetTimezoneID(userModel.TimezoneId);
+        selectedUser.SetPackageID(userModel.PackageId);
+        selectedUser.SetTrackingLevel(userModel.TrackingLevel);
+        selectedUser.SetMaxAllowedDeviceNumber(userModel.MaxAllowedDeviceNumber);
+        selectedUser.SetThemeStyle(userModel.ThemeStyle);
+        selectedUser.SetEnableSignInDetection(userModel.IsSignInDetectionEnabled);
+        selectedUser.SetExpiryDate(userModel.ExpiryDate);
+        CUser.Update(selectedUser);
+        selectedUser.SyncData();
+        ResetModalMode();
+    }
+
+    private void StartAddRow()
+    {
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            userModel = new()
+                {
+                    UserType = UserType.Unset,
+                    IsEmailVerified = false,
+                    IsUserVerified = false,
+                    Status = UserStatus.Inactive,
+                    PackageId = 1,
+                    TrackingLevel = 1000,
+                };
+            IsAddMode = true;
+        }
+    }
+
+    private void HandleValidAddSubmit()
+    {
+        UserEntity newUser = new()
+            {
+                BrandID = userModel.BrandId,
+                Username = userModel.Username,
+                Password = userModel.Password,
+            };
+    }
+
+    private void DeleteUser(CUser aUser)
+    {
+        CUser.Delete(aUser.GetID());
+        aUser.SyncData();
+    }
+
+    private Task<List<CUser>> GetUserListAsync()
+    {
+        return Task.FromResult(CUser.List());
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            userList = await GetUserListAsync();
+            StateHasChanged();
+        }
+    }
+}

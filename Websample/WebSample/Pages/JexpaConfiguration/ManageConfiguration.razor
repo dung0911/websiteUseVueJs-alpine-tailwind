@@ -1,0 +1,356 @@
+@page "/manage-configuration"
+<PageTitle Title="CConfiguration - Manage Configuration" />
+
+@using Jexpa.Core
+@using Jexpa.Core.Legacy
+@using Jexpa.Model.Entity
+@using WebSample.Data
+@using WebSample.Components
+
+<h1>CConfiguration</h1>
+
+<p>This component demonstrates managing CConfiguration.</p>
+
+@if (configurationList.Count <= 0)
+{
+    @if(isRendered)
+    {
+        <p class="text-red-500">There is no data to display.</p>
+    }
+    else
+    {
+        <p><em>Loading...</em></p>
+    }
+}
+else
+{
+    <div class="float-right pr-2 pb-2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-1 px-2 border border-blue-500 rounded"
+            @onclick="() => StartAddRow()">
+            <span class="text-white"><i class="fas fa-plus"></i></span>
+        </button>
+    </div>
+
+    <TableTemplate Columns="columnNames" Items="configurationList" Context="config" TItem="CConfiguration">
+        <RowTemplate>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[0]</span>@config.GetID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[1]</span>@config.GetGroupCode()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[2]</span>@config.GetCode()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[3]</span>@config.GetName()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[4]</span>@config.GetDescription()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[5]</span>@config.GetValue()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[6]</span>@config.GetStatus()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[7]</span>@config.GetModifiedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[8]</span>@config.GetModifiedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[9]</span>@config.GetCreatedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[10]</span>@config.GetCreatedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[11]</span>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                    @onclick="() => StartEditRow(config)">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                    @onclick="() => DeleteConfiguration(config)">
+                    <span class="oi oi-delete"></span>
+                </button>
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+    <ModalTemplate ModalTitle="Add Configuration" IsModalVisible="IsAddMode" OnCloseCallBack="ResetModalMode" Item="@configModel" Context="addConfigurationModel">
+        <BodyTemplate>
+            <EditForm id="add-config-form" Model="@addConfigurationModel" class="w-[90%]" OnValidSubmit="@HandleValidAddSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="text" id="new@(columnNames[1])" name="@columnNames[1]" class="" @bind-value="configModel.GroupCode" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="text" id="new@(columnNames[2])" name="@columnNames[2]" class="" @bind-value="configModel.Code" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="text" id="new@(columnNames[3])" name="@columnNames[3]" class="" @bind-value="configModel.Name" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="text" id="new@(columnNames[4])" name="@columnNames[4]" class="" @bind-value="configModel.Description" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="new@(columnNames[5])" name="@columnNames[5]" class="" @bind-value="configModel.Value" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <input type="number" id="new@(columnNames[6])" name="@columnNames[6]" class="" @bind-value="configModel.Status" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <input type="text" id="new@(columnNames[7])" name="@columnNames[7]" class="" @bind-value="configModel.ModifiedBy" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[8])" class="text-md text-gray-600 pr-2">@columnNames[8]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[9])" class="text-md text-gray-600">@columnNames[9]:</label>
+                    <input type="number" id="new@(columnNames[9])" name="@columnNames[9]" class="" @bind-value="configModel.CreatedBy" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[10])" class="text-md text-gray-600 pr-2">@columnNames[10]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsAddMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="add-config-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+     @*
+        "ID",
+            "Group_Code",
+            "Code",
+            "Name",
+            "Description",
+            "Value",
+            "Status",
+            "Modified_By",
+            "Modified_Date",
+            "Created_By",
+            "Created_Date",
+    *@
+    <ModalTemplate ModalTitle="Edit Configuration" IsModalVisible="IsEditMode" OnCloseCallBack="ResetModalMode" Item="@configModel" Context="editConfigurationModel">
+        <BodyTemplate>
+            <EditForm id="edit-config-form" Model="@editConfigurationModel" class="w-[90%]" OnValidSubmit="@HandleValidEditSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>@configModel.ID</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="text" id="edit@(columnNames[1])" name="edit@(columnNames[1])" class="" @bind-value="configModel.GroupCode" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="text" id="edit@(columnNames[2])" name="edit@(columnNames[2])" class="" @bind-value="configModel.Code" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="text" id="edit@(columnNames[3])" name="edit@(columnNames[3])" class="" @bind-value="configModel.Name" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="text" id="edit@(columnNames[4])" name="edit@(columnNames[4])" class="" @bind-value="configModel.Description" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="edit@(columnNames[5])" name="edit@(columnNames[5])" class="" @bind-value="configModel.Value" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <input type="text" id="edit@(columnNames[6])" name="edit@(columnNames[6])" class="" @bind-value="configModel.Status" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <input type="number" id="edit@(columnNames[7])" name="edit@(columnNames[7])" class="" @bind-value="configModel.ModifiedBy" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[8])" class="text-md text-gray-600 pr-2">@columnNames[8]:</label>
+                    <p>This field is auto-updated.</p>
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[9])" class="text-md text-gray-600 pr-2">@columnNames[9]:</label>
+                    <p>This field cannot be modified.</p>
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[10])" class="text-md text-gray-600 pr-2">@columnNames[10]:</label>
+                    <p>This field cannot be modified.</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsEditMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="edit-config-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+}
+
+@code {
+    private bool isRendered = false;
+    private List<CConfiguration> configurationList = new();
+    private List<string> columnNames = new()
+        {
+            "ID", // 0
+            "Group_Code", // 1
+            "Code", // 2
+            "Name", // 3
+            "Description", // 4
+            "Value", // 5
+            "Status", // 6
+            "Modified_By", // 7
+            "Modified_Date", // 8
+            "Created_By", // 9
+            "Created_Date", // 10
+            "Actions" // 11
+        };
+    private ModalMode _modalMode { get; set; } = ModalMode.DEFAULT;
+    private ConfigurationEntity configModel = new();
+    private CConfiguration selectedItem = new();
+    private bool IsEditMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.EDIT)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.EDIT;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private bool IsAddMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.ADD)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.ADD;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private void ResetModalMode()
+    {
+        _modalMode = ModalMode.DEFAULT;
+    }
+
+    private void StartEditRow(CConfiguration aConfiguration)
+    {
+        selectedItem = aConfiguration;
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            configModel = new()
+                {
+                    ID = aConfiguration.GetID(),
+                    GroupCode = aConfiguration.GetGroupCode(),
+                    Code = aConfiguration.GetCode(),
+                    Name = aConfiguration.GetName(),
+                    Description = aConfiguration.GetDescription(),
+                    Value = aConfiguration.GetValue(),
+                    Status = aConfiguration.GetStatus(),
+                    ModifiedBy = aConfiguration.GetModifiedBy(),
+                    ModifiedDate = aConfiguration.GetModifiedDate(),
+                    CreatedBy = aConfiguration.GetCreatedBy(),
+                    CreatedDate = aConfiguration.GetCreatedDate()
+                };
+            IsEditMode = true;
+        }
+    }
+    private void HandleValidEditSubmit()
+    {
+        CConfiguration.Update(new CConfiguration(configModel));
+        selectedItem.SyncData();
+        ResetModalMode();
+    }
+
+    private void StartAddRow()
+    {
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            configModel = new ConfigurationEntity();
+            IsAddMode = true;
+        }
+    }
+
+    private void HandleValidAddSubmit()
+    {
+        CConfiguration aConfiguration = CConfiguration.Add(new CConfiguration(configModel));
+        if (aConfiguration != null)
+        {
+            configurationList.Add(aConfiguration);
+        }
+        ResetModalMode();
+    }
+
+    private void DeleteConfiguration(CConfiguration aConfiguration)
+    {
+        configurationList.Remove(aConfiguration);
+        CConfiguration.Delete(aConfiguration.GetID());
+    }
+
+    private Task<List<CConfiguration>> GetconfigurationListAsync()
+    {
+        return Task.FromResult(CConfiguration.List());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        configurationList = await GetconfigurationListAsync();
+        configurationList.Sort((x, y) =>
+        {
+            var xId = x.GetID();
+            var yId = y.GetID();
+            if (xId == yId) return 0;
+            if (xId > yId) return 1;
+            return -1;
+        });
+        isRendered = true;
+    }
+}

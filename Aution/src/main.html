@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/output.css" rel="stylesheet" />
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css" rel="stylesheet" />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<style>
+    body {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    .bgColor {
+        background-color: #f3f3f3;
+    }
+
+    .textColor {
+        color: #7ab45d;
+    }
+
+    .linkHover:hover {
+        color: #7ab45d;
+    }
+
+    .bgBtn {
+        background-color: #7ab45d;
+    }
+
+    .borderBtn {
+        border-color: #7ab45d;
+    }
+
+    .bgFooter {
+        background-color: #1b1b1b;
+        color: #565656;
+    }
+
+    .inputColor {
+        color: #333;
+    }
+
+    .inputBgColor {
+        background-color: #e9efe5;
+    }
+
+</style>
+<!-- Plugin -->
+<style>
+    .pluginTitle {
+        background-color: #3c2455;
+    }
+</style>
+
+<!-- Icon -->
+<style>
+    i {
+        opacity: 0.4;
+    }
+
+    i:hover {
+        opacity: 1;
+    }
+</style>
+<!-- Why Auction -->
+<style>
+    .firstBox {
+        background-color: #d1def5;
+    }
+
+    .secondBox {
+        background-color: #f6e7e6;
+    }
+
+    .thirdBox {
+        background-color: #fbf4f9;
+    }
+
+    .fourBox {
+        background-color: #f6e5f5;
+    }
+</style>
+<!-- Live -->
+<style>
+    .weekenTop {
+        top: 72%;
+    }
+</style>
+<!-- Select plan -->
+<style>
+    .borderBoxColor {
+        background: rgba(112, 163, 64, .050980392156862744);
+        color: #0c3048;
+        border: 1px solid rgba(112, 163, 64, .12941176470588237);
+        z-index: 0;
+    }
+
+    .textboxColor {
+        color: #0c3048;
+    }
+
+    .bgboxColor {
+        border-color: #afdd81;
+        background: #e8f0e0;
+    }
+</style>
+<!-- Footer -->
+<style>
+    .textFooter{
+        color:#9FAEBB;
+    }
+    
+    footer {
+        background: #3a3a3a;
+    }
+
+    .footerBottom {
+        background: #2a2a2a;
+    }
+</style>
+<body>
+    <header class="flex justify-between py-5 lg:px-16 sticky top-0 bg-white z-50 shadow-2xl lg:shadow-none lg:relative">
+        <div class="flex justify-between w-full px-4">
+            <div class="flex">
+                <a href="">
+                    <img src="/images/auction-io-logo.png" width="85%" alt="" />
+                </a>
+                <div class="hidden lg:flex relative h-11">
+                    <input type="text" placeholder="Search..."
+                        class="bg-white w-60 border h-11 px-5 pr-10 text-sm inputBgColor rounded-l-sm">
+                    <button type="submit" class="bgBtn text-white p-3 rounded-r-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+    
+                </div>
+            </div>
+         
+            
+            <div class="lg:hidden flex justify-between">
+                <button class="mx-4">
+                    <svg class="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                        viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;"
+                        xml:space="preserve" width="512px" height="512px">
+                        <path
+                            d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                    </svg>
+                </button>
+                <button class="mx-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="h-6 w-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+        <nav class="hidden lg:flex items-center">
+            <li class="list-none mx-4 hover:bg-gray-100 p-2 rounded-sm lg:whitespace-nowrap"><a href="">
+                    <div class="flex">
+                        <img src="/images/navBarImg/icons8-shop-50.png" class="w-5 h-5 mt-1" alt="">
+                        <p class="px-2 pt-1">
+                            Want to sell?
+                        </p>
+                    </div>
+
+                </a></li>
+            <li class="list-none mx-4 hover:bg-gray-100 p-2 rounded-sm lg:whitespace-nowrap"><a href="">
+                    <div class="flex">
+                        <img src="/images/navBarImg/icons8-half-moon-32.png" class="w-5 h-5 mt-1" alt="">
+                        <p class="px-2 pt-1">Theme</p>
+                    </div>
+                </a></li>
+            <li class="list-none mx-4 hover:bg-gray-100 p-2 rounded-sm lg:whitespace-nowrap"><a href="">
+                    <div class="flex">
+                        <img src="/images/navBarImg/icons8-price-list-49.png" class="w-5 h-5 mt-1" alt="">
+                        <p class="px-2 pt-1">See Pricing</p>
+                    </div>
+                </a></li>
+            <li class="list-none mx-4"><a href="" class=" lg:whitespace-nowrap"><i class=""></i>Sign-In</a></li>
+            <nav class="container mx-auto px-4 flex items-center justify-between  ">
+                <div class="relative" x-data="{ isOpen: false}">
+                    <div class="">
+                        <button x-on:click="isOpen = !isOpen" x-on:keydown.escape="isOpen = false"
+                            class="flex items-center">
+                            <div class="flex">
+                                <p class="px-2">
+                                    Register
+                                </p>
+                                <svg class="w-2 h-2 mx-2 mt-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 232">
+                                    <path
+                                        d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
+                                        fill="#648299" fill-rule="nonzero" />
+                                </svg>
+                            </div>
+                        </button>
+                    </div>
+                    <ul x-show="isOpen" x-on:click.away="isOpen = false"
+                        class="absolute font-normal bg-white shadow overflow-hidden rounded-sm w-48 mt-2 right-0 z-20">
+                        <li class="">
+                            <a href="#" class="flex items-center px-3 py-3 rounded-sm hover:bg-gray-200">
+                                <span class="text-black">Register as a buyer</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-3 py-3 rounded-sm hover:bg-gray-200">
+                                <span class="text-black">Register as a seller</span>
+
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </nav>
+    </header>
+    <div class="">
+        <div
+            class="p-14 w-11/12 mx-auto pluginTitle text-white text-center py-6 px-16 my-16 rounded-xl container relative">
+            <h2 class="text-2xl font-bold">Browse our awesome plugins and create your own customized store.</h2>
+            <h4 class="text-md mt-2">Each plugin is valid upto 7,500 users. </h4>
+
+            <div class="absolute rotate-45 -top-4 left-4">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"
+                    class="w-14 h-13">
+                    <g id="surface61509366">
+                        <path style=" stroke:none;fill-rule:nonzero;fill:#5c3d7d;fill-opacity:1;"
+                            d="M 11.5 0 C 10.117188 0 9 1.117188 9 2.5 L 9 4 L 3 4 L 3 10 L 4.359375 10 C 5.664062 10 6.855469 10.941406 6.984375 12.242188 C 7.136719 13.738281 5.964844 15 4.5 15 L 3 15 L 3 21 L 9 21 L 9 19.644531 C 9 18.335938 9.941406 17.144531 11.242188 17.015625 C 12.738281 16.863281 14 18.035156 14 19.5 L 14 21 L 20 21 L 20 15 L 21.5 15 C 22.882812 15 24 13.882812 24 12.5 C 24 11.117188 22.882812 10 21.5 10 L 20 10 L 20 4 L 14 4 L 14 2.5 C 14 1.117188 12.882812 0 11.5 0 Z M 11.5 0 " />
+                    </g>
+                </svg>
+            </div>
+            <div class="absolute rotate-12 -bottom-4 right-4">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"
+                    class="w-14 h-13">
+                    <g id="surface61509366">
+                        <path style=" stroke:none;fill-rule:nonzero;fill:#5c3d7d;fill-opacity:1;"
+                            d="M 11.5 0 C 10.117188 0 9 1.117188 9 2.5 L 9 4 L 3 4 L 3 10 L 4.359375 10 C 5.664062 10 6.855469 10.941406 6.984375 12.242188 C 7.136719 13.738281 5.964844 15 4.5 15 L 3 15 L 3 21 L 9 21 L 9 19.644531 C 9 18.335938 9.941406 17.144531 11.242188 17.015625 C 12.738281 16.863281 14 18.035156 14 19.5 L 14 21 L 20 21 L 20 15 L 21.5 15 C 22.882812 15 24 13.882812 24 12.5 C 24 11.117188 22.882812 10 21.5 10 L 20 10 L 20 4 L 14 4 L 14 2.5 C 14 1.117188 12.882812 0 11.5 0 Z M 11.5 0 " />
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <div class="p-4 lg:p-14 lg:flex relative md:mb-0 mb-10">
+            <div class="lg:mr-8">
+                <div class="lg:flex w-full">
+                    <div class="mb-6">
+                        <div class="flex justify-between mx-2 my-4 items-center">
+                            <h3 class="font-bold text-xl">Select a plan
+                            </h3>
+                            <button class="px-4 py-2 rounded-full border hover:bg-gray-100">
+                                View plan infomation
+                            </button>
+                        </div>
+                        <div class="md:grid sm:grid-cols-2 2xl:grid-cols-3 gap-4 w-full relative mb-4">
+                            <div class="relative textboxColor borderBoxColor rounded-3xl w-full my-2 md:my-0">
+                                <div
+                                    class="absolute top-0 right-0 text-white font-bold rounded-bl-2xl rounded-tr-2xl bgBtn p-1 px-5">
+                                    Preferred Plan
+                                </div>
+                                <div class="flex relative justify-between">
+                                    <div class="pl-5 mt-5">
+                                        <h4 class="font-bold text-2xl">Advanced*</h4>
+                                        <h5 class="font-bold text-md">$500/month</51>
+                                            <p class="text-sm font-normal">Your own site look like
+                                                ebay in 60mins.
+                                            </p>
+                                    </div>
+                                    <div class=" mt-10">
+                                        <img src="https://auction.io/assets/svg/rocket.svg" class="" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative textboxColor borderBoxColor rounded-3xl w-full my-2 md:my-0">
+
+                                <div class="flex justify-between">
+                                    <div class="pl-5 mt-5">
+                                        <h4 class="font-bold text-2xl">Business*</h4>
+                                        <h5 class="font-bold text-md">$200/month
+                                            </51>
+                                            <p class="text-sm font-normal">Post products in Auction.io
+                                                only.
+                                            </p>
+                                    </div>
+                                    <div class="mt-10">
+                                        <img src="https://auction.io/assets/svg/plane.svg" class="" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative textboxColor borderBoxColor rounded-3xl w-full my-2 md:my-0">
+
+                                <div class="flex justify-between">
+                                    <div class="pl-6 mt-5">
+                                        <h4 class="font-bold text-2xl">Startup*</h4>
+                                        <p class="text-sm font-normal">FREE- One time auction.
+                                        </p>
+                                    </div>
+                                    <div class="mt-10">
+                                        <img src="https://auction.io/assets/svg/ship.svg" class="" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="" class="textColor font-bold">
+                            *Includes Timed and Live Auction
+                        </a>
+                    </div>
+
+                </div>
+                <h3>Select a plugin</h3>
+                <div class="grid md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3">
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/inventory.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">Inventory</h4>
+                            <h6>US $48.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/ACH.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">ACH</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/hamer.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">Auction.io On/Off</h4>
+                            <h6>US $48.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/maintenance.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">Maintenance On/Off</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/IOC.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">IOC Security Scanner</h4>
+                            <h6>US $48.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/hamer.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">Powered By AuctionIO</h4>
+                            <h6>US $48.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/Reverse.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">Reverse Auction</h4>
+                            <h6>US $48.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/backup.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">
+                                Backup</h4>
+                            <h6>US $48.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/restore.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">Restore</h4>
+                            <h6>US $48.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/avalara.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">Avalara</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/twillio.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">
+                                Twillio</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/Reverse.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">
+                                PaymentGateway (Stripe)</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/quickbooks.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">
+                                QuickBooks</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/ios.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">
+                                IOS Buyer App</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/android.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">
+
+                                Android Buyer App</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/ios.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">
+                                IOS Seller App</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                    <div class="flex p-4 border rounded-lg m-2 relative cursor-pointer">
+                        <div class="absolute top-2 right-2">
+                            <i class="material-icons duration-500">info</i>
+                        </div>
+                        <img src="/images/PluginImg/android.jpeg" class="w-12 h-12" alt="">
+                        <div class="mx-2">
+                            <h4 class="font-bold">
+                                Android Seller App</h4>
+                            <h6>US $24.00/month</h6>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="sticky bottom-0 pb-6 bg-white lg:w-1/3 2xl:w-1/4">
+                <div class="sticky top-4 w-full">
+                    <div class="relative px-4 py-6 rounded-2xl bg-white border-dotted border-2 shadow-2xl">
+                        <div class="absolute left-10 top-3 text-sm text-gray-400 bg-white rounded-2xl">
+                            Total users
+                        </div>
+                        <div class="flex justify-between py-4 border text-gray-400 rounded-md mb-8 px-2">
+                            <span>7500</span>
+                            <span>users</span>
+                        </div>
+                        <div class="flex justify-between border-b py-4">
+                            <span>0 Apps:</span>
+                            <span class=" font-bold"> US $0</span>
+                        </div>
+                        <div class="flex justify-between border-b py-4">
+                            <span>Plan:</span>
+                            <span class=" font-bold">US $500.00</span>
+                        </div>
+                        <div class="flex justify-between py-4 font-bold">
+                            <span class="whitespace-nowrap">Total per month:</span>
+                            <span class="textColor whitespace-nowrap">US $500.00</span>
+                        </div>
+                        <button class="w-full py-3 rounded-full bgBtn text-white uppercase">
+                            buy now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="relative w-full h-full">
+            <div class="bg-gray-100 p-6 lg:p-14">
+                <div class="border-l-4 borderBtn pl-6 mb-6">
+                    <button class="px-4 py-2 text-white rounded-full bgBtn">See All</button>
+                    <h1 class="text-5xl my-3 font-bold">Timed</h1>
+                    <h2 class="text-3xl">Auctions</h2>
+                </div>
+                <div class="grid md:grid-cols-3">
+                    <div class="m-1">
+                        <img src="/images/Timid/2af0caf567a0cc9feb94ad05b55cd149fc3aea37.jpeg" class="" alt="">
+                    </div>
+                    <div class="m-1">
+                        <img src="/images/Timid/7543849708d7aed94781fad1d03c13d87767c349.jpeg" class="" alt="">
+                    </div>
+                    <div class="m-1">
+                        <img src="/images/Timid/03be02458a540a167ce72cbe72b5eef006b3a68d.jpeg" class="" alt="">
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3">
+                    <div class="m-1">
+                        <img src="/images/Timid/0b7ca28f55dd8f480f672b5ddb08ce753b88dc39.jpeg" class="w-full h-full"
+                            alt="">
+                    </div>
+                    <div class="m-1">
+                        <img src="/images/Timid/af4fcc03844508a3cb9efca80966badbd815798a.jpeg" class="w-full h-full"
+                            alt="">
+                    </div>
+                    <div class="m-1">
+                        <img src="/images/Timid/575cfe3056177f1b1a0b230495470df6c21fad04.jpeg" class="w-full h-full"
+                            alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="lg:p-14 w-full h-full">
+                <div class="border-l-4 borderBtn pl-6 my-6">
+                    <button class="px-4 py-2 text-white rounded-full bgBtn">See All</button>
+                    <h1 class="text-5xl my-3 font-bold">Live</h1>
+                    <h2 class="text-3xl">Auctions</h2>
+                </div>
+                <div class="md:flex">
+                    <div class="m-1 md:w-1/4">
+                        <div class="lg:flex">
+                            <div class="md:w-full m-3">
+                                <a href="">
+                                    <div
+                                        class="relative flex items-center justify-center overflow-hidden h-80 mb-3 hover:shadow-xl">
+                                        <div class="absolute w-full h-full transition-all duration-500 ease-in-out transform bg-center bg-cover "
+                                            style="background-image:url('/images/Timid/684ce3a3e49114f9b8a4c2141ffc7cced0314311.jpeg');">
+                                        </div>
+                                        <div
+                                            class="absolute bg-white leading-loose weekenTop left-0  transition-transform duration-200 ease-out whitespace-nowrap transform hover:-translate-y-16 w-full px-2 pb-6">
+                                            <p class="overflow-hidden text-ellipsis whitespace-nowrap">Happy weekend
+                                                --time for no reverse auction</p>
+                                            <div class="flex items-center">
+                                                <img src="https://auction.io/assets/images/live.gif"
+                                                    class="mr-2 w-5 h-5" alt="">
+                                                <p>Live Auction Started</p>
+                                            </div>
+                                            <p class="">Carrollton, Texas</p>
+                                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View
+                                                Auction</button>
+
+                                        </div>
+                                    </div>
+                            </div>
+                            </a>
+
+                        </div>
+                    </div>
+                    <div class="m-1 md:w-1/4">
+                        <div class="lg:flex">
+                            <div class="md:w-full m-3">
+                                <a href="">
+                                    <div
+                                        class="relative flex items-center justify-center overflow-hidden h-80 mb-3 hover:shadow-xl">
+                                        <div class="absolute w-full h-full transition-all duration-500 ease-in-out transform bg-center bg-cover "
+                                            style="background-image:url('/images/Timid/0ca026663b62b3dfdb3b61c60fb0bdd07aafda09.jpeg');">
+                                        </div>
+                                        <div
+                                            class="absolute bg-white leading-loose weekenTop left-0  transition-transform duration-200 ease-out whitespace-nowrap transform hover:-translate-y-16 w-full px-2 pb-6">
+                                            <p class="overflow-hidden text-ellipsis whitespace-nowrap">Silver bullion
+                                                blowout, morgans, gold & more</p>
+                                            <div class="flex items-center">
+                                                <img src="https://auction.io/assets/images/live.gif"
+                                                    class="mr-2 w-5 h-5" alt="">
+                                                <p>Live Auction Started</p>
+                                            </div>
+                                            <p class=""> vancouver , Washington</p>
+                                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View
+                                                Auction</button>
+
+                                        </div>
+                                    </div>
+                            </div>
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="p-6 lg:p-14">
+                <div class="border-l-4 borderBtn pl-6 mb-6">
+                    <button class="px-4 py-2 text-white rounded-full bgBtn">See All</button>
+                    <h1 class="text-5xl my-3 font-bold">Car</h1>
+                    <h2 class="text-3xl">Auctions</h2>
+                </div>
+                <div class="md:grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 relative mb-4">
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/VW.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">VW,Touran
+                                1.6 TDI
+                                Sound ,2017</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">VW</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">Touran 1.6 TDI Sound</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2017</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">99486</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/BMW.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">BMW,218i
+                                Gran Coupe M
+                                Sport ,2020</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">BMW</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">218i Gran Coupe M Sport</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2020</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">21687</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/Mercedes.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">MERCEDES
+                                BENZ,GLA 220 CGI 7G 4Matic Urban ,2017</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">MERCEDES BENZ</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">GLA 220 CGI 7G 4Matic Urban</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2017</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">27378</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/hyundai.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">
+                                HYUNDAI,Tucson 2.0
+                                CRDI DCT 4WD N-Line ,2020</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">HYUNDAI</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">Tucson 2.0 CRDI DCT 4WD N-Line</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2020</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">23806</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/fiat.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">
+                                FIAT,Talento SX 2.0
+                                Ecojet 145 L2H1 ,2021</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">FIAT</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">Talento SX 2.0 Ecojet 145 L2H1</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2021</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">3139</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/skoda.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">
+                                SKODA,Roomster Praktik
+                                1.2 12V ,2014</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">SKODA</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">Roomster Praktik 1.2 12V</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2014</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">67965</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/citroen.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">
+                                CITROEN,Berlingo 1.6
+                                BlueHDi 120 Selection ,2018</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">CITROEN</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">Berlingo 1.6 BlueHDi 120 Selection</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2018</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">61418</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/renault.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">
+                                RENAULT,Clio V TCe 100
+                                Experience Deluxe ,05/0</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">RENAULT</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">Clio V TCe 100 Experience Deluxe</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2020</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">22336</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/landrover.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">LAND
+                                ROVER,Defender LR
+                                110 SW 2.8 ,1984</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">LAND ROVER</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">Defender LR 110 SW 2.8</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">1984</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">230000</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/seat.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">
+                                SEAT,Alhambra 1.4 TSI
+                                Style 7-SEATER ,2018</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">SEAT</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">Alhambra 1.4 TSI Style 7-SEATER</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2018</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">59061</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                    <div class="rounded-lg shadow-2xl p-3">
+                        <img src="/images/Cars/BWMAdvantage.jpeg" class="w-full" alt="">
+                        <div class="">
+                            <h3 class="font-bold my-2 whitespace-nowrap overflow-hidden text-ellipsis text-lg">BMW,118 d
+                                car
+                                Advantage ,2016</h3>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Brand:</p>
+                                <p class="text-md">BMW</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Model:</p>
+                                <p class="text-md">118 d car Advantage</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Year:</p>
+                                <p class="text-md">2016</p>
+                            </div>
+                            <div class="flex my-1">
+                                <p class="w-16 mr-2">Mileage:</p>
+                                <p class="text-md">129523</p>
+                            </div>
+                            <button class="uppercase py-2 w-full bgBtn text-white rounded-sm">View Details</button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="flex">
+                    <button><img src="/images/icons8-skip-to-start-64.png" alt="" class="w-5 h-5"></button>
+                    <button><img src="/images/icons8-chevron-left-30.png" alt="" class="w-5 h-5"></button>
+                    <div class="w-6 mx-4 text-center text-black h-6 p-2 rounded-full bg-gray-300 relative">
+                        <span class="absolute top-0 left-2">1</span>
+                    </div> <button><img src="/images/icons8-more-than-50.png" alt="" class="w-5 h-5"></button>
+                    <button><img src="/images/icons8-end-30.png" alt="" class="w-5 h-5"></button>
+
+                </div>
+            </div>
+        </div>
+        <div class="relative w-full mb-14">
+            <div class="lg:flex justify-between px-6 md:px-20 pt-12 pb-24 bg-gray-200">
+                <h1 class="text-4xl font-bold text-gray-500 md:mb-0 mb-10">Why Auction.io?</h1>
+                <button class="bgBtn py-2 px-4 uppercase text-white rounded-sm hover:bg-gray-200 duration-500">Register
+                    today</button>
+
+            </div>
+
+        </div>
+
+    </div>
+    </nav>
+    <div class="-mt-14">
+        <div class="container lg:flex w-11/12 bg-white mx-auto p-1 shadow-2xl">
+            <div class="firstBox mr-1 p-6 lg:w-1/4">
+                <img src="https://auction.io/assets/svg/1.svg" class="h-20 mb-6 w-20" alt="">
+                <h1 class="my-4 font-bold text-lg">Quality Matters</h1>
+                <p class="text-xs">Auction.io provides detailed view to verify the quality of the product before
+                    you submit a bid.</p>
+            </div>
+            <div class="secondBox mr-1 p-6 lg:w-1/4">
+                <img src="https://auction.io/assets/svg/2.svg" class="h-20 mb-6 w-20" alt="">
+                <h1 class="my-4 font-bold text-lg">Real Time Bids</h1>
+                <p class="text-xs">Suggested Retail Pricing and Machine learning Sale price in real time
+                    eliminates guess work.</p>
+            </div>
+            <div class="thirdBox mr-1 p-6 lg:w-1/4">
+                <img src="https://auction.io/assets/svg/3.svg" class="h-20 mb-6 w-20" alt="">
+                <h1 class="my-4 font-bold text-lg">Save when you BUY</h1>
+                <p class="text-xs">Auction.io is here to save you money! We sell items from our website for you
+                    to pick up either from our warehouse or Auctioneer’s Warehouse directly. Pickup or Shipping
+                    Terms are clearly defined before making payment.</p>
+            </div>
+            <div class="fourBox p-6 lg:w-1/4">
+                <img src="https://auction.io/assets/svg/4.svg" class="h-20 mb-6 w-20" alt="">
+                <h1 class="my-4 font-bold text-lg">Powered Locally</h1>
+                <p class="text-xs">Get the clarity about the products from the local Auctioneer before you buy!
+                    Support and promote local business and the liquidation of national brands.</p>
+            </div>
+        </div>
+    </div>
+    <div class="lg:flex relative container w-full p-6 lg:p-14">
+        <div class="lg:w-2/4">
+            <h4>Our Customers</h4>
+            <!-- tailwind Carousel -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper flex py-4 w-full">
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/aucwine.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/beestate.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/gmf.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/idealfloor.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/nellis.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/renugo.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/ruumr.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/seadwelling.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/slibuy.png" class="w-full h-14" alt="">
+                    </div>
+                    <div class="swiper-slide flex-shrink-0 overflow-hidden">
+                        <img src="/images/scrollImg/somos.png" class="w-full h-14" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mx-4 lg:mx-12 lg:w-1/3">
+            <h4 class="text-lg mb-2 font-bold">Shop with Confidence
+            </h4>
+            <p class="text-sm">AuctionSoftware.com has built many auction websites for Small, Medium and Large
+                enterprise customers
+                in every industry since 2014. Our software platform is handling around $180M transactions every
+                year. Our Software is the solution for your auction needs!</p>
+        </div>
+        <div class="bg-gray-200 h-20 m-3 p-3 rounded-md w-1/2 md:w-2/12">
+            <a href="">Review us at</a>
+            <img src="/images/captera.png" class="w-fit" alt="">
+        </div>
+    </div>
+    <div class="fixed rounded-full p-5 bg-blue-900 text-white right-4 bottom-6 z-50">
+        <svg class="w-7 h-8 fill-white" viewBox="0 0 28 32">
+            <path
+                d="M28 32s-4.714-1.855-8.527-3.34H3.437C1.54 28.66 0 27.026 0 25.013V3.644C0 1.633 1.54 0 3.437 0h21.125c1.898 0 3.437 1.632 3.437 3.645v18.404H28V32zm-4.139-11.982a.88.88 0 00-1.292-.105c-.03.026-3.015 2.681-8.57 2.681-5.486 0-8.517-2.636-8.571-2.684a.88.88 0 00-1.29.107 1.01 1.01 0 00-.219.708.992.992 0 00.318.664c.142.128 3.537 3.15 9.762 3.15 6.226 0 9.621-3.022 9.763-3.15a.992.992 0 00.317-.664 1.01 1.01 0 00-.218-.707z">
+            </path>
+        </svg>
+    </div>
+    <footer class="text-white list-none">
+        <div class=" container mx-auto grid grid-cols-2 md:grid-cols-3  justify-between w-full lg:w-9/12 p-6 lg:p-12">
+            <div class="">
+                <h5 class="hidden md:block">PRODUCT</h5>
+                <nav>
+                    <li class="text-sm my-2"><a href="">Products</a></li>
+                    <li class="text-sm my-2"><a href="">Porfolio</a></li>
+                    <li class="text-sm my-2"><a href="">Platform</a></li>
+                    <li class="text-sm my-2"><a href="">API</a></li>
+                    <li class="text-sm my-2"><a href="">FAQ</a></li>
+                </nav>
+            </div>
+            <div class="">
+                <h5 class="hidden md:block">COMPANY</h5>
+                <nav>
+                    <li class="text-sm my-2"><a href="" class="linkHover">About us</a></li>
+                    <li class="text-sm my-2"><a href="" class="linkHover">Pricing</a></li>
+                    <li class="text-sm my-2"><a href="" class="linkHover">Blog</a></li>
+                    <li class="text-sm my-2"><a href="" class="linkHover">Reviews</a></li>
+                    <li class="text-sm my-2"><a href="" class="linkHover">Seller Manual</a></li>
+                    <li class="text-sm my-2"><a href="" class="linkHover">Sign-in as seller</a></li>
+                </nav>
+            </div>
+            <div class="">
+                <h5 class="hidden md:block">CONTACT</h5>
+                <nav>
+                    <li class="text-sm my-2"><a href="" class="linkHover">support@auction.io</a></li>
+                    <li class="text-sm my-2"><a href="" class="linkHover">+1-972-200-5516</a></li>
+                    <li class="text-sm my-2"><a href="" class="linkHover">1221 West Campbell Road, Suite 181,
+                            Richardson,<br> Texas 75080</a>
+                    </li>
+                </nav>
+            </div>
+        </div>
+        <div class="footerBottom textFooter">
+            <div class="container mx-auto lg:flex justify-between lg:px-12 w-9/12 py-2 text-sm text-center">
+                <div class="lg:flex justify-between">
+                    <a href="" class="mr-3 linkHover">Term & Conditions</a>
+                    <a href="" class="ml-3 linkHover">Privacy</a>
+                </div>
+                <p>© 2022 - Auction.io | All right reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            speed: 1000,
+            slidesPerView: 4,
+            spaceBetween: 60,
+            breakpoints: {
+                480: {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                }
+            },
+            autoplay:
+            {
+                delay: 1500,
+            },
+            loop: true,
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+@page "/login"
+
+<PageTitle Title="CUser - Login" />
+
+@using Jexpa.Core;
+@using Jexpa.Core.Legacy;
+
+<section class="min-h-screen flex flex-col">
+    <nav>
+        <div class="px-4 py-6 @(string.IsNullOrEmpty(errorMessage)? "text-green-600" : "text-red-600")">
+            @if (string.IsNullOrEmpty(errorMessage) && loginStatus == LoginStatus.Success)
+            {
+                <p>Login success - @username</p>
+            }
+            else
+            {
+                <p>@((MarkupString) errorMessage)</p>
+            }
+        </div>
+    </nav>
+    <div class="flex flex-1 items-center justify-center">
+        <div class="rounded-lg sm:border-2 px-4 lg:px-24 py-16 lg:max-w-xl sm:max-w-md w-full text-center">
+            <div class="text-center">
+                <h1 class="font-bold tracking-wider text-3xl mb-8 w-full text-gray-600">
+                    Sign in
+                </h1>
+                <div class="py-2 text-left">
+                    <input type="text"
+                           class="border-2 border-gray-100 focus:outline-none bg-gray-100 block w-full py-2 px-4 rounded-lg focus:border-gray-700"
+                           @bind-value="username"
+                           placeholder="Username" />
+                </div>
+                <div class="py-2 text-left">
+                    <input type="password"
+                           class="border-2 border-gray-100 focus:outline-none bg-gray-100 block w-full py-2 px-4 rounded-lg focus:border-gray-700"
+                           @bind-value="password"
+                           placeholder="Password" />
+                </div>
+                <div class="py-2">
+                    <button class="border-2 border-gray-100 focus:outline-none bg-purple-600 text-white font-bold tracking-wider block w-full p-2 rounded-lg focus:border-gray-700 hover:bg-purple-700"
+                            @onclick="LoginUser">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+            <div class="text-center">
+                <NavLink class="font-light text-md text-indigo-600 underline hover:text-indigo-800" href="forgot-password">
+                    Forgot password?
+                </NavLink>
+            </div>
+            <div class="text-center mt-12">
+                <span>
+                    Don't have an account?
+                </span>
+                <NavLink class="font-light text-md text-indigo-600 underline hover:text-indigo-800" href="register">
+                    Create One
+                </NavLink>
+            </div>
+        </div>
+    </div>
+</section>
+
+@code {
+    private LoginStatus? loginStatus;
+    private string username = string.Empty;
+    private string password = string.Empty;
+    private string brandUrl = string.Empty;
+    private string errorMessage = string.Empty;
+    private void LoginUser()
+    {
+        errorMessage = string.Empty;
+        if (string.IsNullOrEmpty(username))
+        {
+            errorMessage = "Username must not leave blank";
+        }
+
+        if (string.IsNullOrEmpty(password))
+        {
+            
+            if (!String.IsNullOrEmpty(errorMessage))
+                errorMessage += "<br/>";
+            errorMessage += "Password must not leave blank";
+        }
+
+        if (!string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+        {
+            loginStatus = CUser.LoginByUsername(brandUrl, username, password);
+            if (loginStatus != LoginStatus.Success)
+            {
+                if (!String.IsNullOrEmpty(errorMessage))
+                    errorMessage += "<br/>";
+                errorMessage += "Login error - " + loginStatus.ToString();
+            }
+        }
+        else
+        {
+            loginStatus = null;
+        }
+    }
+}

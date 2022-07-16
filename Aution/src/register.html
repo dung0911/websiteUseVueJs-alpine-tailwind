@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/output.css" rel="stylesheet" />
+</head>
+<style>
+    .bgColor {
+        background-color: #f3f3f3;
+    }
+
+    .textColor {
+        color: #7ab45d;
+    }
+
+    .bgBtn {
+        background-color: #7ab45d;
+    }
+
+    .borderBtn {
+        border-color: #7ab45d;
+    }
+
+    .bgFooter {
+        background-color: #1b1b1b;
+        color: #565656;
+    }
+</style>
+<style>
+    .main {
+        display: block;
+        position: relative;
+
+        cursor: pointer;
+
+
+    }
+
+    .main input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #7ab45d;
+
+    }
+
+    .main:hover input~.checkmark {
+        background-color: orange;
+    }
+
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    .main input:checked~.checkmark:after {
+        display: block;
+    }
+
+    .main .checkmark:after {
+        left: 9px;
+        top: 1px;
+        width: 9px;
+        height: 20px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+</style>
+<style>
+    .filter {
+        -webkit-filter: brightness(0) invert(1);
+        filter: brightness(0) invert(1);
+    }
+</style>
+
+<body class=" bgColor">
+    <div class="fixed z-20 flex flex-wrap justify-between p-2 border-b w-full bg-white">
+        <a href="">
+            <img src="/images/auction-io-logo.png" width="85%" alt="" />
+        </a>
+        <button class="lg:hidden px-2 rounded-md border-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <ul class="hidden lg:flex items-center">
+            <li class="mx-2">
+                <a href="" class="text-gray-600 text-sm hover:text-gray-300">How It Works</a>
+            </li>
+            <li class="mx-2">
+                <a href="" class="text-gray-600 text-sm hover:text-gray-300">Help Center</a>
+            </li>
+            <li class="mx-2">
+                <a href="" class="hover:text-gray-300">
+                    <button
+                        class="uppercase px-4 py-2 text-white bgBtn rounded-sm hover:text-black hover:bg-white border borderBtn duration-700">
+                        register / login
+                    </button>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="relative py-32 bgColor">
+        <div class="relative container m-auto px-6">
+            <div class="m-auto lg:w-1/2">
+                <div class="container mx-auto bg-white p-10 rounded-2xl">
+                    <div class="flex justify-between p-2">
+                        <button class="border-b-2 borderBtn w-full uppercase pb-2 textColor">login</button>
+                        <button class="border-b-2 border-gray-600 w-full uppercase pb-2 textColor">register</button>
+                    </div>
+                    <div class="">
+                        <div class="text-center">
+                            <h1 class="pt-10 pb-3 text-2xl font-bold">Tell Us More About Yourself</h1>
+                            <p class="text-lg font-bold text-gray-500">We will use this address to reach out to you.</p>
+                        </div>
+                        <form action="">
+                            <div class="flex justify-between my-4">
+                                <div class="w-full mr-4">
+                                    <label for="" class="font-bold text-sm">First name</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4" type="text"
+                                        placeholder="Email Address *"><br>
+                                </div>
+                                <div class="w-full ml-4">
+                                    <label for="" class="font-bold text-sm">Last name</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4" type="text"
+                                        placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="flex justify-between my-4">
+                                <div class="w-full mr-4">
+                                    <label for="" class="font-bold text-sm">Business name</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4" type="text"
+                                        placeholder="Business name *"><br>
+                                </div>
+                                <div class="w-full ml-4">
+                                    <label for="" class="font-bold text-sm">Email</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4" type="Email"
+                                        placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="flex justify-between my-4">
+                                <div class="w-full mr-4">
+                                    <label for="" class="font-bold text-sm">Password</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4"
+                                        type="Password" placeholder="Password *"><br>
+                                </div>
+                                <div class="w-full ml-4">
+                                    <label for="" class="font-bold text-sm">Confirm password</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4"
+                                        type="password" placeholder="Confirm password">
+                                </div>
+                            </div>
+                            <div class="my-4">
+                                <label for="" class="font-bold text-sm">Address</label>
+                                <textarea id="address" name="address"
+                                    class="w-full border-gray-400 border rounded-md p-2 mt-4"
+                                    placeholder="Enter your address"></textarea>
+                            </div>
+                            <div class="flex justify-between my-4">
+                                <div class="w-full mr-4">
+                                    <label for="" class="font-bold text-sm">City</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4" type="text"
+                                        placeholder="City *"><br>
+                                </div>
+                                <div class="w-full ml-4">
+                                    <label for="" class="font-bold text-sm">Country</label><br>
+                                    <select name="country"
+                                        class="w-full py-3 px-4 border-gray-400 border rounded-md my-4" id="country">
+                                        <option value="0" selected="selected">Select a country</option>
+                                        <optgroup id="country-optgroup-Asia" label="Asia">
+                                            <option value="AF" label="Afghanistan">Afghanistan</option>
+                                            <option value="AM" label="Armenia">Armenia</option>
+                                            <option value="AZ" label="Azerbaijan">Azerbaijan</option>
+                                            <option value="BH" label="Bahrain">Bahrain</option>
+                                            <option value="BD" label="Bangladesh">Bangladesh</option>
+                                            <option value="BT" label="Bhutan">Bhutan</option>
+                                            <option value="BN" label="Brunei">Brunei</option>
+                                            <option value="KH" label="Cambodia">Cambodia</option>
+                                            <option value="CN" label="China">China</option>
+                                            <option value="GE" label="Georgia">Georgia</option>
+                                            <option value="HK" label="Hong Kong SAR China">Hong Kong SAR China</option>
+                                            <option value="IN" label="India">India</option>
+                                            <option value="ID" label="Indonesia">Indonesia</option>
+                                            <option value="IR" label="Iran">Iran</option>
+                                            <option value="IQ" label="Iraq">Iraq</option>
+                                            <option value="IL" label="Israel">Israel</option>
+                                            <option value="JP" label="Japan">Japan</option>
+                                            <option value="JO" label="Jordan">Jordan</option>
+                                            <option value="KZ" label="Kazakhstan">Kazakhstan</option>
+                                            <option value="KW" label="Kuwait">Kuwait</option>
+                                            <option value="KG" label="Kyrgyzstan">Kyrgyzstan</option>
+                                            <option value="LA" label="Laos">Laos</option>
+                                            <option value="LB" label="Lebanon">Lebanon</option>
+                                            <option value="MO" label="Macau SAR China">Macau SAR China</option>
+                                            <option value="MY" label="Malaysia">Malaysia</option>
+                                            <option value="MV" label="Maldives">Maldives</option>
+                                            <option value="MN" label="Mongolia">Mongolia</option>
+                                            <option value="MM" label="Myanmar [Burma]">Myanmar [Burma]</option>
+                                            <option value="NP" label="Nepal">Nepal</option>
+                                            <option value="NT" label="Neutral Zone">Neutral Zone</option>
+                                            <option value="KP" label="North Korea">North Korea</option>
+                                            <option value="OM" label="Oman">Oman</option>
+                                            <option value="PK" label="Pakistan">Pakistan</option>
+                                            <option value="PS" label="Palestinian Territories">Palestinian Territories
+                                            </option>
+                                            <option value="YD" label="People's Democratic Republic of Yemen">People's
+                                                Democratic Republic of Yemen</option>
+                                            <option value="PH" label="Philippines">Philippines</option>
+                                            <option value="QA" label="Qatar">Qatar</option>
+                                            <option value="SA" label="Saudi Arabia">Saudi Arabia</option>
+                                            <option value="SG" label="Singapore">Singapore</option>
+                                            <option value="KR" label="South Korea">South Korea</option>
+                                            <option value="LK" label="Sri Lanka">Sri Lanka</option>
+                                            <option value="SY" label="Syria">Syria</option>
+                                            <option value="TW" label="Taiwan">Taiwan</option>
+                                            <option value="TJ" label="Tajikistan">Tajikistan</option>
+                                            <option value="TH" label="Thailand">Thailand</option>
+                                            <option value="TL" label="Timor-Leste">Timor-Leste</option>
+                                            <option value="TR" label="Turkey">Turkey</option>
+                                            <option value="TM" label="Turkmenistan">Turkmenistan</option>
+                                            <option value="AE" label="United Arab Emirates">United Arab Emirates
+                                            </option>
+                                            <option value="UZ" label="Uzbekistan">Uzbekistan</option>
+                                            <option value="VN" label="Vietnam">Vietnam</option>
+                                            <option value="YE" label="Yemen">Yemen</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="flex justify-between my-4">
+                                <div class="w-full mr-4">
+                                    <label for="" class="font-bold text-sm">State</label><br>
+                                    <select
+                                        class="w-full py-3 px-4 border-gray-400 border rounded-md my-4 text-gray-400">
+                                        <option>Select State</option>
+                                        <option></option>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="w-full ml-4">
+                                    <label for="" class="font-bold text-sm">Zip code</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4" type="text"
+                                        placeholder="City *"><br>
+                                </div>
+                            </div>
+                            <div class="flex justify-between my-4">
+                                <div class="w-full mr-4">
+                                    <label for="" class="font-bold text-sm">Phone</label>
+
+                                    <div class="flex relative mt-4 border-gray-400 border rounded-md">
+                                        <select class="relative bg-gray-200 border rounded-l-md">
+                                            <option>All</option>
+                                            <option>ID</option>
+                                            <option>Package</option>
+                                            <option>Start Date</option>
+                                            <option>End Date</option>
+                                            <option>Status</option>
+                                        </select>
+                                        <input type="text" placeholder="Enter your mobile number *"
+                                               class="bg-white w-full border h-12 px-5 pr-10 text-sm rounded=r-md">
+                                    </div>
+
+                                </div>
+                                <div class="w-full ml-4">
+                                    <label for="" class="font-bold text-sm">Personal website (optional)</label>
+                                    <input class="w-full py-3 px-4 border-gray-400 border rounded-md my-4" type="text"
+                                        placeholder="Enter your website"><br>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="mt-5 mb-12">
+                        <label class="main">
+                            <input type="checkbox" checked="checked">
+                            <span class="checkmark"></span>
+                            <span class="pl-8"><span class="textColor font-bold">I Agree To The</span> <a href="" class="text-blue-600 hover:text-blue-800 font-bold"> Terms And Conditions</a> *</span>
+                        </label>
+                    </div>
+                    <div class="my-6 flex justify-end">
+                        <button class="px-6 py-2 text-white bgBtn rounded-sm uppercase font-bold">get started</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-black w-full text-white">
+        <div class="container mx-auto w-full px-6 lg:w-2/3 py-8">
+            <div class="lg:flex justify-between pb-6">
+                <div class="pb-6 border-b border-gray-500 lg:border-none">
+                    <div class="flex pt-4 pb-10 justify-center">
+                        <li class="mx-5 list-none"><a href="">Training</a></li>
+                        <li class="mx-5 list-none"><a href="">Porfolio</a></li>
+                        <li class="mx-5 list-none"><a href="">Blog</a></li>
+                        <li class="mx-5 list-none"><a href="">Services</a></li>
+                    </div>
+                    <div class="bg-white mx-auto text-black w-5/6">
+                        <div class="flex p-2">
+                            <a href="" class="mr-1">
+                                <img src="https://scontent.fsgn5-15.fna.fbcdn.net/v/t39.30808-1/247974357_3129956213943593_4638069655437252167_n.jpg?stp=cp0_dst-jpg_p80x80&_nc_cat=111&ccb=1-5&_nc_sid=dbb9e7&_nc_ohc=yr5iqF4lGcwAX-KshVe&_nc_ht=scontent.fsgn5-15.fna&edm=AEDRbFQEAAAA&oh=00_AT-UH_1QlPYh65-rqmikwyK7oLDNQFHbXP2NzJvtEilsmw&oe=6252A587"
+                                    class="border border-black w-14" alt="">
+                            </a>
+                            <div class="">
+                                <a href="" class="hover:underline ml-2 pb-2 text-blue-700">Auctionsoftware.com</a>
+                                <div class="flex pt-1">
+                                    <button class="flex p-1 rounded-md bg-gray-100 border-b">
+                                        <img src="/images/facebook.png" class="w-4" alt="">
+                                        <span class="text-xs pl-1 font-bold text-gray-600">Thích Trang</span>
+                                    </button>
+                                    <span class="text-xs ml-1 mt-1">11K lượt thích</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <img src="https://app.auction.io/css/images/logo.svg" class="filter mx-auto lg:pl-64" alt="">
+                    <address class="text-center lg:text-right">
+                        972-200-5516<br>
+                        US Office Address<br>
+                        DevelopScripts LLC<br>
+                        1221 West Campbell Road, Suite 181,<br>
+                        Richardson, Texas 75080
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bgFooter text-center py-4">
+        <p>@2021 by Auctionsoftware.com</p>
+    </footer>
+</body>
+
+</html>

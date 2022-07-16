@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/dist/output.css" rel="stylesheet" />
+
+</head>
+<style>
+    body {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333;
+        background-color: #fff;
+    }
+
+    .btnColor {
+        background-color: #70a340;
+    }
+
+    .textColor {
+        color: #70a340;
+    }
+
+    .bgFully {
+        min-height: 900px;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-color: #f5f5f5;
+        clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 71%);
+        z-index: -1;
+        background-image: url(https://auction.io/wp-content/themes/shops/images/bannerImg.svg);
+        background-position-x: 90%;
+        background-position-y: 12%;
+    }
+    tbody tr+tr td:first-child + td{
+        background: #f7f7f7;
+    }
+    tbody tr+tr td:first-child + td+ td+ td{
+        background: #f7f7f7;
+    }
+
+
+    .table__td--1 {
+        background-color: #70a340;
+    }
+
+    .table__td--2 {
+        background-color: #6c438e;
+    }
+
+    .table__td--3 {
+        background-color: #313d8c;
+    }
+
+
+</style>
+
+<body>
+    <div class="bgFully">
+        <header>
+            <div class="flex justify-between w-full px-16 py-6">
+                <a href="">
+                    <img src="/images/auction-io-logo.png" alt="">
+                </a>
+                <nav class="flex justify-between list-none items-center">
+                    <li class="mx-6"><a href="" class="uppercase">home</a></li>
+                    <li class="mx-6"><a href="" class="uppercase">pricing</a></li>
+                    <li class="mx-6"><a href="" class="uppercase">apis</a></li>
+                    <li class="mx-6"><a href="" class="uppercase">marketplace</a></li>
+                    <li class="mx-6"><a href="" class="uppercase">contact us</a></li>
+                </nav>
+                <button class="uppercase font-bold py-4 px-10 btnColor text-white">
+                    get started
+                </button>
+            </div>
+        </header>
+        <div class="px-32 py-16 ">
+            <div class="p-2 text-white btnColor w-28 flex justify-center whitespace-nowrap uppercase font-bold">
+                your own
+            </div>
+            <h1 class="text-5xl my-4 ">
+                Fully-Functional <br>
+                Auction Site
+            </h1>
+            <p class="my-6 text-xl textColor font-bold">Build and launch in minutes</p>
+            <p class="text-xl leading-normal">Join Today to be part of <br>
+                1,000 Satisfied Customers by <br>
+                <span class="font-bold text-lg">
+                    One Time Auction (Free) Plan NOW!
+                </span>
+            </p>
+            <button
+                class="border-2 border-black px-10 tracking-wide py-4 text-md uppercase font-bold rounded-full my-6 textColor">Kick-start
+                your business today</button>
+        </div>
+    </div>
+    <div class="w-full relative px-56">
+        <table class="w-full">
+            <thead>
+                <tr class="bg-gray-300 ">
+                    <th class="py-4 h-16 w-1/4">Plan</th>
+                    <th class="py-4 h-16">Startup - One time</th>
+                    <th class="py-4 h-16">Business</th>
+                    <th class="py-4 h-16">Enterprise</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="h-12 text-5xl pl-4">Price</td>
+                    <td class="h-12 table__td--1 text-white py-4 px-2 text-xl">One Time Auction <br> (Free)</td>
+                    <td class="h-12 table__td--2 text-white py-4 px-2 text-xl">$200 per month or <br>
+                        $2,000 per year</td>
+                    <td class="h-12 table__td--3 text-white py-4 px-2 text-xl">$500 per month or <br>
+                        $5,000 per year</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">AUCTION.IO MARKETPLACE FEES <br> (TIMED)</td>
+                    <td class="h-12 py-4 px-2">2%</td>
+                    <td class="h-12 py-4 px-2">2%</td>
+                    <td class="h-12 py-4 px-2">2%</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">AUCTION.IO MARKETPLACE FEES <br> (LIVE)</td>
+                    <td class="h-12 py-4 px-2">2%</td>
+                    <td class="h-12 py-4 px-2">2%</td>
+                    <td class="h-12 py-4 px-2">2%</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">ONLINE PAYMENT FEES</td>
+                    <td class="h-12 py-4 px-2">3.1% + 30 cents</td>
+                    <td class="h-12 py-4 px-2">3.1% + 30 cents</td>
+                    <td class="h-12 py-4 px-2">3.1% + 30 cents</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">LIVE AUCTION TOOL <br> (OPTIONAL)</td>
+                    <td class="h-12 py-4 px-2">$650</td>
+                    <td class="h-12 py-4 px-2">$650</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">BUYER FEES TOOL</td>
+                    <td class="h-12 py-4 px-2">No</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">WE CREATE AUCTION STORE | <br>MARKETPLACE FOR YOU
+                    </td>
+                    <td class="h-12 py-4 px-2">No</td>
+                    <td class="h-12 py-4 px-2">No</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">SELL VIA YOUR STORE FEES</td>
+                    <td class="h-12 py-4 px-2">NA</td>
+                    <td class="h-12 py-4 px-2">NA</td>
+                    <td class="h-12 py-4 px-2">0%</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">MAX ACTIVE LISTING PER <br> AUCTION</td>
+                    <td class="h-12 py-4 px-2">400</td>
+                    <td class="h-12 py-4 px-2">1500</td>
+                    <td class="h-12 py-4 px-2">Unlimited</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">YOU SELECT AUCTION DATE</td>
+                    <td class="h-12 py-4 px-2">$199/Auction</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">WE SELECT AUCTION DATE</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                    <td class="h-12 py-4 px-2">Yes</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2 font-bold">AUCTIONS ALLOWED PER YEAR</td>
+                    <td class="h-12 py-4 px-2">1</td>
+                    <td class="h-12 py-4 px-2">Unlimited</td>
+                    <td class="h-12 py-4 px-2">Unlimited</td>
+                </tr>
+                <tr class="border-b">
+                    <td class="h-12 py-4 px-2"></td>
+                    <td class="h-12 py-4 px-2 bg-white">
+                        <button class="uppercase text-center items-center w-full rounded-full py-2 text-white table__td--1">go</button>
+                    </td>
+                    <td class="h-12 py-4 px-2 bg-white">
+                        <button class="uppercase text-center items-center w-full rounded-full py-2 text-white table__td--2">go</button>
+                    </td>
+                    <td class="h-12 py-4 px-2 bg-white">
+                        <button class="uppercase text-center items-center w-full rounded-full py-2 text-white table__td--3">go</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,477 @@
+@page "/manage-payment"
+<PageTitle Title="CPayment - Manage Payment" />
+
+@using System.Globalization
+@using WebSample.Data
+@using WebSample.Components
+@using Jexpa.Core
+@using Jexpa.Core.Legacy
+@using Jexpa.Model.Entity
+@using BlazorDateRangePicker
+
+<h1>CPayment</h1>
+
+<p>This component demonstrates managing CPayment.</p>
+
+@if (!isRendered)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="float-right pr-2 pb-2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-1 px-2 border border-blue-500 rounded"
+            @onclick="() => StartAddRow()">
+            <span class="text-white"><i class="fas fa-plus"></i></span>
+        </button>
+    </div>
+
+    <TableTemplate Columns="columnNames.Where((item, index) => index < 15 || index == columnNames.Count - 1)" Items="paymentList" Context="payment" TItem="CPayment">
+        <RowTemplate>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[0]</span>@payment.GetID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[1]</span>@payment.GetBrandID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[2]</span>@payment.GetMerchantID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[3]</span>@payment.GetPackageID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[4]</span>@payment.GetUserID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[5]</span>@payment.GetPaymentType()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[6]</span>@payment.GetPaymentDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[7]</span>@payment.GetCompletedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[8]</span>@payment.GetInvoiceNo()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[9]</span>@payment.GetDescription()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[10]</span>@payment.GetNumberOfDays()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[11]</span>@payment.GetAmount()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[12]</span>@payment.GetAmountFee()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[13]</span>@payment.GetStatus()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[14]</span>@payment.GetMerchantRefNo()
+            </td>
+            @* <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[15]</span>@payment.GetMerchantAccountBuyer()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[16]</span>@payment.GetMerchantAccountSeller()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[17]</span>@payment.GetIPAddress()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[18]</span>@payment.GetNotes()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[19]</span>@payment.GetRiskMark()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[20]</span>@payment.GetCreatedDate()
+            </td> *@
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[21]</span>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                    @onclick="() => StartEditRow(payment)">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                    @onclick="() => DeletePayment(payment)">
+                    <span class="oi oi-delete"></span>
+                </button>
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+    <ModalTemplate ModalTitle="Add Payment" IsModalVisible="IsAddMode" OnCloseCallBack="ResetModalMode" Item="@paymentModel" Context="addPaymentModel">
+        <BodyTemplate>
+            <EditForm id="add-payment-form" Model="@addPaymentModel" class="w-[90%]" OnValidSubmit="@HandleValidAddSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="number" id="new@(columnNames[1])" name="@columnNames[1]" class="" @bind-value="@addPaymentModel.BrandID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="number" id="new@(columnNames[2])" name="@columnNames[2]" class="" @bind-value="@addPaymentModel.MerchantID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="number" id="new@(columnNames[3])" name="@columnNames[3]" class="" @bind-value="@addPaymentModel.PackageID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="number" id="new@(columnNames[4])" name="@columnNames[4]" class="" @bind-value="@addPaymentModel.UserID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="new@(columnNames[5])" name="@columnNames[5]" class="" @bind-value="@addPaymentModel.PaymentType" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <DateRangePicker SingleDatePicker="true" DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true"
+                                 placeholder="Select a date..." @bind-StartDate="@addPaymentModel.UIPaymentDate" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <DateRangePicker SingleDatePicker="true" DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true"
+                                 placeholder="Select a date..." @bind-StartDate="@addPaymentModel.UICompletedDate" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[8])" class="text-md text-gray-600">@columnNames[8]:</label>
+                    <input type="text" id="new@(columnNames[8])" name="@columnNames[8]" class="" @bind-value="@addPaymentModel.InvoiceNo" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[9])" class="text-md text-gray-600">@columnNames[9]:</label>
+                    <input type="text" id="new@(columnNames[9])" name="@columnNames[9]" class="" @bind-value="@addPaymentModel.Description" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[10])" class="text-md text-gray-600">@columnNames[10]:</label>
+                    <input type="number" id="new@(columnNames[10])" name="@columnNames[10]" class="" @bind-value="@addPaymentModel.NumberOfDays" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[11])" class="text-md text-gray-600">@columnNames[11]:</label>
+                    <input type="number" step=any id="new@(columnNames[11])" name="@columnNames[11]" class="" @bind-value="@addPaymentModel.Amount" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[12])" class="text-md text-gray-600">@columnNames[12]:</label>
+                    <input type="number" step=any id="new@(columnNames[12])" name="@columnNames[12]" class="" @bind-value="@addPaymentModel.AmountFee" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[13])" class="text-md text-gray-600">@columnNames[13]:</label>
+                    <input type="number" id="new@(columnNames[13])" name="@columnNames[13]" class="" @bind-value="@addPaymentModel.Status" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[14])" class="text-md text-gray-600">@columnNames[14]:</label>
+                    <input type="text" id="new@(columnNames[14])" name="@columnNames[14]" class="" @bind-value="@addPaymentModel.MerchantRefNo" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[15])" class="text-md text-gray-600">@columnNames[15]:</label>
+                    <input type="text" id="new@(columnNames[15])" name="@columnNames[15]" class="" @bind-value="@addPaymentModel.MerchantAccountBuyer" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[16])" class="text-md text-gray-600 pr-2">@columnNames[16]:</label>
+                    <input type="text" id="new@(columnNames[16])" name="@columnNames[16]" class="" @bind-value="@addPaymentModel.MerchantAccountSeller" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[17])" class="text-md text-gray-600">@columnNames[17]:</label>
+                    <input type="text" id="new@(columnNames[17])" name="@columnNames[17]" class="" @bind-value="@addPaymentModel.IPAddress" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[18])" class="text-md text-gray-600 pr-2">@columnNames[18]:</label>
+                    <input type="text" id="new@(columnNames[18])" name="@columnNames[18]" class="" @bind-value="@addPaymentModel.Notes" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[19])" class="text-md text-gray-600">@columnNames[19]:</label>
+                    <input type="number" id="new@(columnNames[19])" name="@columnNames[19]" class="" @bind-value="@addPaymentModel.RiskMark" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[20])" class="text-md text-gray-600">@columnNames[20]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsAddMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="add-payment-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+
+    <ModalTemplate ModalTitle="Edit Payment" IsModalVisible="IsEditMode" OnCloseCallBack="ResetModalMode" Item="@paymentModel" Context="editPaymentModel">
+        <BodyTemplate>
+            <EditForm id="edit-payment-form" Model="@editPaymentModel" class="w-[90%]" OnValidSubmit="@HandleValidEditSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>@editPaymentModel.ID</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="number" id="edit@(columnNames[1])" name="edit@(columnNames[1])" class="" @bind-value="@editPaymentModel.BrandID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="number" id="edit@(columnNames[2])" name="edit@(columnNames[2])" class="" @bind-value="@editPaymentModel.MerchantID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="number" id="edit@(columnNames[3])" name="edit@(columnNames[3])" class="" @bind-value="@editPaymentModel.PackageID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="number" id="edit@(columnNames[4])" name="edit@(columnNames[4])" class="" @bind-value="@editPaymentModel.UserID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="edit@(columnNames[5])" name="edit@(columnNames[5])" class="" @bind-value="@editPaymentModel.PaymentType" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <DateRangePicker SingleDatePicker="true" DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true"
+                                 placeholder="Select a date..." @bind-StartDate="@editPaymentModel.UIPaymentDate" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <DateRangePicker SingleDatePicker="true" DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true"
+                                 placeholder="Select a date..." @bind-StartDate="@editPaymentModel.UICompletedDate" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[8])" class="text-md text-gray-600">@columnNames[8]:</label>
+                    <input type="text" id="edit@(columnNames[8])" name="edit@(columnNames[8])" class="" @bind-value="@editPaymentModel.InvoiceNo" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[9])" class="text-md text-gray-600">@columnNames[9]:</label>
+                    <input type="text" id="edit@(columnNames[9])" name="edit@(columnNames[9])" class="" @bind-value="@editPaymentModel.Description" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[10])" class="text-md text-gray-600">@columnNames[10]:</label>
+                    <input type="number" id="edit@(columnNames[10])" name="edit@(columnNames[10])" class="" @bind-value="@editPaymentModel.NumberOfDays" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[11])" class="text-md text-gray-600">@columnNames[11]:</label>
+                    <input type="number" step=any id="edit@(columnNames[11])" name="edit@(columnNames[11])" class="" @bind-value="@editPaymentModel.Amount" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[12])" class="text-md text-gray-600">@columnNames[12]:</label>
+                    <input type="number" step=any id="edit@(columnNames[12])" name="edit@(columnNames[12])" class="" @bind-value="@editPaymentModel.AmountFee" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[13])" class="text-md text-gray-600">@columnNames[13]:</label>
+                    <input type="number" id="edit@(columnNames[13])" name="edit@(columnNames[13])" class="" @bind-value="@editPaymentModel.Status" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[14])" class="text-md text-gray-600">@columnNames[14]:</label>
+                    <input type="text" id="edit@(columnNames[14])" name="edit@(columnNames[14])" class="" @bind-value="@editPaymentModel.MerchantRefNo" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[15])" class="text-md text-gray-600">@columnNames[15]:</label>
+                    <input type="text" id="edit@(columnNames[15])" name="edit@(columnNames[15])" class="" @bind-value="@editPaymentModel.MerchantAccountBuyer" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[16])" class="text-md text-gray-600">@columnNames[16]:</label>
+                    <input type="text" id="edit@(columnNames[16])" name="edit@(columnNames[16])" class="" @bind-value="@editPaymentModel.MerchantAccountSeller" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[17])" class="text-md text-gray-600">@columnNames[17]:</label>
+                    <input type="text" id="edit@(columnNames[17])" name="edit@(columnNames[17])" class="" @bind-value="@editPaymentModel.IPAddress" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[18])" class="text-md text-gray-600">@columnNames[18]:</label>
+                    <input type="text" id="edit@(columnNames[18])" name="edit@(columnNames[18])" class="" @bind-value="@editPaymentModel.Notes" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[19])" class="text-md text-gray-600">@columnNames[19]:</label>
+                    <input type="number" id="edit@(columnNames[19])" name="edit@(columnNames[19])" class="" @bind-value="@editPaymentModel.RiskMark" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[20])" class="text-md text-gray-600 pr-2">@columnNames[20]:</label>
+                    <p>@editPaymentModel.CreatedDate</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsEditMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="edit-payment-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+}
+
+@code {
+    private string dateFormat = string.Format("{0} {1}", CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern, CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern);
+    private bool isRendered = false;
+    private List<CPayment> paymentList = new();
+    private List<string> columnNames = new()
+        {
+
+            "ID", // 0
+            "Brand_ID", // 1
+            "Merchant_ID", // 2
+            "Package_ID", // 3
+            "User_ID", // 4
+            "Payment_Type", // 5
+            "Payment_Date", // 6
+            "Completed_Date", // 7
+            "Invoice_No", // 8
+            "Description", // 9
+            "Number_Of_Days", // 10
+            "Amount", // 11
+            "Amount_Fee", // 12
+            "Status", // 13
+            "Merchant_Ref_No", // 14
+            "Merchant_Account_Buyer", // 15
+            "Merchant_Account_Seller", // 16
+            "IP_Address", // 17
+            "Notes", // 18
+            "Risk_Mark", // 19
+            "Created_Date", // 20
+            "Actions" // 21
+        };
+    private ModalMode _modalMode { get; set; } = ModalMode.DEFAULT;
+    private PaymentModel paymentModel = new();
+    private CPayment selectedItem = new();
+    private bool IsEditMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.EDIT)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.EDIT;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private bool IsAddMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.ADD)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.ADD;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private void ResetModalMode()
+    {
+        _modalMode = ModalMode.DEFAULT;
+    }
+
+    private void StartEditRow(CPayment aPayment)
+    {
+        selectedItem = aPayment;
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            paymentModel = new()
+                {
+                    ID = aPayment.GetID(),
+                    BrandID = aPayment.GetBrandID(),
+                    MerchantID = aPayment.GetMerchantID(),
+                    PackageID = aPayment.GetPackageID(),
+                    UserID = aPayment.GetUserID(),
+                    PaymentType = aPayment.GetPaymentType(),
+                    PaymentDate = aPayment.GetPaymentDate(),
+                    CompletedDate = aPayment.GetCompletedDate(),
+                    InvoiceNo = aPayment.GetInvoiceNo(),
+                    Description = aPayment.GetDescription(),
+                    NumberOfDays = aPayment.GetNumberOfDays(),
+                    Amount = aPayment.GetAmount(),
+                    AmountFee = aPayment.GetAmountFee(),
+                    Status = aPayment.GetStatus(),
+                    MerchantRefNo = aPayment.GetMerchantRefNo(),
+                    MerchantAccountBuyer = aPayment.GetMerchantAccountBuyer(),
+                    MerchantAccountSeller = aPayment.GetMerchantAccountSeller(),
+                    IPAddress = aPayment.GetIPAddress(),
+                    Notes = aPayment.GetNotes(),
+                    RiskMark = aPayment.GetRiskMark(),
+                    CreatedDate = aPayment.GetCreatedDate(),
+                };
+            IsEditMode = true;
+        }
+    }
+    private void HandleValidEditSubmit()
+    {
+        PaymentEntity paymentEntity = new PaymentEntity(paymentModel);
+        CPayment.Update(new CPayment(paymentEntity));
+        selectedItem.SyncData();
+        ResetModalMode();
+    }
+
+    private void StartAddRow()
+    {
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            paymentModel = new();
+            IsAddMode = true;
+        }
+    }
+
+    private void HandleValidAddSubmit()
+    {
+        PaymentEntity paymentEntity = new PaymentEntity(paymentModel);
+        CPayment aPayment = CPayment.Add(new CPayment(paymentEntity));
+        if (aPayment != null)
+        {
+            paymentList.Add(aPayment);
+        }
+        ResetModalMode();
+    }
+
+    private void DeletePayment(CPayment aPayment)
+    {
+        paymentList.Remove(aPayment);
+        CPayment.Delete(aPayment.GetID());
+    }
+
+    private Task<List<CPayment>> GetpaymentListAsync()
+    {
+        return Task.FromResult(CPayment.List());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isRendered = true;
+        paymentList = await GetpaymentListAsync();
+        paymentList.Sort((x, y) =>
+        {
+            var xId = x.GetID();
+            var yId = y.GetID();
+            if (xId == yId) return 0;
+            if (xId > yId) return 1;
+            return -1;
+        });
+    }
+}

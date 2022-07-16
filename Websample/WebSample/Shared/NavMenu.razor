@@ -1,0 +1,285 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">WebSample</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass">
+    @* No Container - Home *@
+    <div class="nav-item">
+        <NavLink @onclick="ToggleNavMenu" href="" Match="NavLinkMatch.All"
+                 class="nav-link w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                 focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-home min-w-[32px]"></i>
+                <span class="font-medium">Home</span>
+            </span>
+        </NavLink>
+    </div>
+    @* CActivity *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCActivity); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-chart-line min-w-[32px]"></i>
+                <span class="font-medium">CActivity</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCActivity? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCActivity? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300
+                        hover:bg-white hover:bg-opacity-10 hover:text-white" @onclick="ToggleNavMenu" href="manage-activity">
+                <span>Manage Activity</span>
+            </NavLink>
+        </div>
+    </div>
+    @* CConfiguration *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCConfiguration); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-tools min-w-[32px]"></i>
+                <span class="font-medium">CConfiguration</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCConfiguration? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCConfiguration? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300
+                hover:bg-white hover:bg-opacity-10 hover:text-white" @onclick="ToggleNavMenu" href="manage-configuration">
+                <span>Manage Configuration</span>
+            </NavLink>
+        </div>
+    </div>
+    @* CCoupon *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCCoupon); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-ticket-alt min-w-[32px]"></i>
+                <span class="font-medium">CCoupon</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCCoupon? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCCoupon? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300
+                hover:bg-white hover:bg-opacity-10 hover:text-white" @onclick="ToggleNavMenu" href="manage-coupon">
+                <span>Manage Coupon</span>
+            </NavLink>
+        </div>
+    </div>
+    @* CLicense *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCLicense); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-file-alt min-w-[32px]"></i>
+                <span class="font-medium">CLicense</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCLicense? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCLicense? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300
+                        hover:bg-white hover:bg-opacity-10 hover:text-white" @onclick="ToggleNavMenu" href="manage-license">
+                <span>Manage License</span>
+            </NavLink>
+        </div>
+    </div>
+    @* CPattern *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCPattern); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-closed-captioning min-w-[32px]"></i>
+                <span class="font-medium">CPattern</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCPattern? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCPattern? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300
+                hover:bg-white hover:bg-opacity-10 hover:text-white" @onclick="ToggleNavMenu" href="manage-patterns">
+                <span>Manage Patterns</span>
+            </NavLink>
+        </div>
+    </div>
+    @* CPayment *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCPayment); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-money-bill-wave min-w-[32px]"></i>
+                <span class="font-medium">CPayment</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCPayment? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCPayment? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300
+                        hover:bg-white hover:bg-opacity-10 hover:text-white" @onclick="ToggleNavMenu" href="manage-payment">
+                <span>Manage Payment</span>
+            </NavLink>
+        </div>
+    </div>
+    @* CPrice *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCPrice); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-dollar-sign min-w-[32px]"></i>
+                <span class="font-medium">CPrice</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCPrice? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCPrice? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300
+                        hover:bg-white hover:bg-opacity-10 hover:text-white" @onclick="ToggleNavMenu" href="manage-price">
+                <span>Manage Price</span>
+            </NavLink>
+        </div>
+    </div>
+    @* CSMTPSetting *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCSMTPSetting); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-cogs min-w-[32px]"></i>
+                <span class="font-medium">CSMTPSetting</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCSMTPSetting? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCSMTPSetting? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300
+                hover:bg-white hover:bg-opacity-10 hover:text-white" @onclick="ToggleNavMenu" href="manage-smtp-settings">
+                <span>Manage Settings</span>
+            </NavLink>
+        </div>
+    </div>
+    @* CUser *@
+    <div class="">
+        <div @onclick="() => { ToggleNavContainer(NavContainer.NavCUser); }"
+             class="w-full flex justify-between items-center py-3 px-6 text-gray-300 cursor-pointer
+                focus:outline-none hover:bg-white hover:bg-opacity-10 hover:text-white">
+            <span class="flex items-center">
+                <i class="fas fa-users min-w-[32px]"></i>
+                <span class="font-medium">CUser</span>
+            </span>
+
+            <span class="@(activeContainer == NavContainer.NavCUser? "rotate-90" : "")">
+                <svg class="h-4 w-4 transition duration-150 ease-in-out" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style=""></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="nav-item @(activeContainer == NavContainer.NavCUser? "" : "hidden")">
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                     @onclick="ToggleNavMenu" href="manage-users">
+                <span>Manage Users</span>
+            </NavLink>
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                     @onclick="ToggleNavMenu" href="login">
+                <span>Login</span>
+            </NavLink>
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                     @onclick="ToggleNavMenu" href="register">
+                <span>Register</span>
+            </NavLink>
+            <NavLink class="nav-link py-2 px-16 block text-sm text-gray-300 hover:bg-white hover:bg-opacity-10 hover:text-white"
+                     @onclick="ToggleNavMenu" href="forgot-password">
+                <span>Forgot Password</span>
+            </NavLink>
+        </div>
+    </div>
+</div>
+
+@code {
+    enum NavContainer
+    {
+        None,
+        NavCActivity,
+        NavCConfiguration,
+        NavCCoupon,
+        NavCLicense,
+        NavCPattern,
+        NavCPayment,
+        NavCPrice,
+        NavCSMTPSetting,
+        NavCUser,
+    }
+    private bool collapseNavMenu = true;
+    private NavContainer activeContainer = NavContainer.None;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void ToggleNavContainer(NavContainer container)
+    {
+        if (activeContainer == container)
+        {
+            activeContainer = NavContainer.None;
+        }
+        else
+        {
+            activeContainer = container;
+        }
+    }
+}

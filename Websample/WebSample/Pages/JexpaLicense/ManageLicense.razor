@@ -1,0 +1,445 @@
+@page "/manage-license"
+<PageTitle Title="CLicense - Manage License" />
+
+@using System.Globalization
+@using WebSample.Data
+@using WebSample.Components
+@using Jexpa.Core
+@using Jexpa.Core.Legacy
+@using Jexpa.Model.Entity
+@using BlazorDateRangePicker
+
+<h1>CLicense</h1>
+
+<p>This component demonstrates managing CLicense.</p>
+
+@if (!isRendered)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="float-right pr-2 pb-2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-1 px-2 border border-blue-500 rounded"
+            @onclick="() => StartAddRow()">
+            <span class="text-white"><i class="fas fa-plus"></i></span>
+        </button>
+    </div>
+
+    <TableTemplate Columns="columnNames" Items="licenseList" Context="license" TItem="CLicense">
+        <RowTemplate>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[0]</span>@license.GetID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[1]</span>@license.GetBrandID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[2]</span>@license.GetPackageID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[3]</span>@license.GetLicenseKey()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[4]</span>@license.GetSourceID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[5]</span>@license.GetRefLicense()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[6]</span>@license.GetDescription()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[7]</span>@license.GetAmount()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[8]</span>@license.GetStartDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[9]</span>@license.GetEndDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[10]</span>@license.GetNumberOfDays()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[11]</span>@license.GetStatus()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[12]</span>@license.GetCurrencyID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[13]</span>@license.GetUsedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[14]</span>@license.GetUsedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[15]</span>@license.GetModifiedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[16]</span>@license.GetModifiedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[17]</span>@license.GetCreatedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[18]</span>@license.GetCreatedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[19]</span>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                    @onclick="() => StartEditRow(license)">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                    @onclick="() => DeleteLicense(license)">
+                    <span class="oi oi-delete"></span>
+                </button>
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+    <ModalTemplate ModalTitle="Add License" IsModalVisible="IsAddMode" OnCloseCallBack="ResetModalMode" Item="@licenseModel" Context="addLicenseModel">
+        <BodyTemplate>
+            <EditForm id="add-license-form" Model="@addLicenseModel" class="w-[90%]" OnValidSubmit="@HandleValidAddSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="number" id="new@(columnNames[1])" name="@columnNames[1]" class="" @bind-value="@addLicenseModel.BrandID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="number" id="new@(columnNames[2])" name="@columnNames[2]" class="" @bind-value="@addLicenseModel.PackageID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="text" id="new@(columnNames[3])" name="@columnNames[3]" class="" @bind-value="@addLicenseModel.LicenseKey" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="number" id="new@(columnNames[4])" name="@columnNames[4]" class="" @bind-value="@addLicenseModel.SourceID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="new@(columnNames[5])" name="@columnNames[5]" class="" @bind-value="@addLicenseModel.RefLicense" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <input type="text" id="new@(columnNames[6])" name="@columnNames[6]" class="" @bind-value="@addLicenseModel.Description" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <input type="number" step=any id="new@(columnNames[7])" name="@columnNames[7]" class="" @bind-value="@addLicenseModel.Amount" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label class="text-md text-gray-600 pr-2">License valid date range:</label>
+                    <DateRangePicker DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true" placeholder="Select license valid date range..."
+                        @bind-StartDate="@addLicenseModel.UIStartDate" @bind-EndDate="@addLicenseModel.UIEndDate"/>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[10])" class="text-md text-gray-600">@columnNames[10]:</label>
+                    <input type="number" id="new@(columnNames[10])" name="@columnNames[10]" class="" @bind-value="@addLicenseModel.NumberOfDays" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[11])" class="text-md text-gray-600">@columnNames[11]:</label>
+                    <input type="number" id="new@(columnNames[11])" name="@columnNames[11]" class="" @bind-value="@addLicenseModel.Status" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[12])" class="text-md text-gray-600">@columnNames[12]:</label>
+                    <input type="number" id="new@(columnNames[12])" name="@columnNames[12]" class="" @bind-value="@addLicenseModel.CurrencyID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[13])" class="text-md text-gray-600">@columnNames[13]:</label>
+                    <input type="number" id="new@(columnNames[13])" name="@columnNames[13]" class="" @bind-value="@addLicenseModel.UsedBy" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[14])" class="text-md text-gray-600">@columnNames[14]:</label>
+                    <DateRangePicker SingleDatePicker="true" DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true" placeholder="Select a date..." @bind-StartDate="@addLicenseModel.UIUsedDate" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[15])" class="text-md text-gray-600">@columnNames[15]:</label>
+                    <input type="number" id="new@(columnNames[15])" name="@columnNames[15]" class="" @bind-value="@addLicenseModel.ModifiedBy" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[16])" class="text-md text-gray-600 pr-2">@columnNames[16]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[17])" class="text-md text-gray-600">@columnNames[17]:</label>
+                    <input type="number" id="new@(columnNames[17])" name="@columnNames[17]" class="" @bind-value="@addLicenseModel.CreatedBy" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[18])" class="text-md text-gray-600 pr-2">@columnNames[18]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsAddMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="add-license-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+
+    <ModalTemplate ModalTitle="Edit License" IsModalVisible="IsEditMode" OnCloseCallBack="ResetModalMode" Item="@licenseModel" Context="editLicenseModel">
+        <BodyTemplate>
+            <EditForm id="edit-license-form" Model="@editLicenseModel" class="w-[90%]" OnValidSubmit="@HandleValidEditSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>@editLicenseModel.ID</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="number" id="edit@(columnNames[1])" name="edit@(columnNames[1])" class="" @bind-value="@editLicenseModel.BrandID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="number" id="edit@(columnNames[2])" name="edit@(columnNames[2])" class="" @bind-value="@editLicenseModel.PackageID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="number" id="edit@(columnNames[3])" name="edit@(columnNames[3])" class="" @bind-value="@editLicenseModel.LicenseKey" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="number" id="edit@(columnNames[4])" name="edit@(columnNames[4])" class="" @bind-value="@editLicenseModel.SourceID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="edit@(columnNames[5])" name="edit@(columnNames[5])" class="" @bind-value="@editLicenseModel.RefLicense" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <input type="text" id="edit@(columnNames[6])" name="edit@(columnNames[6])" class="" @bind-value="@editLicenseModel.Description" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <input type="number" step=any id="edit@(columnNames[7])" name="edit@(columnNames[7])" class="" @bind-value="@editLicenseModel.Amount" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label class="text-md text-gray-600 pr-2">License valid date range:</label>
+                    <DateRangePicker DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true" placeholder="Select license valid date range..."
+                        @bind-StartDate="@editLicenseModel.UIStartDate" @bind-EndDate="@editLicenseModel.UIEndDate"/>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[10])" class="text-md text-gray-600 pr-2">@columnNames[10]:</label>
+                    <input type="number" id="edit@(columnNames[10])" name="edit@(columnNames[10])" class="" @bind-value="@editLicenseModel.NumberOfDays" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[11])" class="text-md text-gray-600 pr-2">@columnNames[11]:</label>
+                    <input type="number" id="edit@(columnNames[11])" name="edit@(columnNames[11])" class="" @bind-value="@editLicenseModel.Status" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[12])" class="text-md text-gray-600 pr-2">@columnNames[12]:</label>
+                    <input type="number" id="edit@(columnNames[12])" name="edit@(columnNames[12])" class="" @bind-value="@editLicenseModel.CurrencyID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[13])" class="text-md text-gray-600 pr-2">@columnNames[13]:</label>
+                    <input type="number" id="edit@(columnNames[13])" name="edit@(columnNames[13])" class="" @bind-value="@editLicenseModel.UsedBy" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[14])" class="text-md text-gray-600 pr-2">@columnNames[14]:</label>
+                    <DateRangePicker SingleDatePicker="true" DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true" placeholder="Select a date..." @bind-StartDate="@editLicenseModel.UIUsedDate" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[15])" class="text-md text-gray-600 pr-2">@columnNames[15]:</label>
+                    <input type="number" id="edit@(columnNames[15])" name="edit@(columnNames[15])" class="" @bind-value="@editLicenseModel.ModifiedBy" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[16])" class="text-md text-gray-600 pr-2">@columnNames[16]:</label>
+                    <p>This field is auto-updated by the system.</p>
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[17])" class="text-md text-gray-600 pr-2">@columnNames[17]:</label>
+                    <p>@editLicenseModel.CreatedBy</p>
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[18])" class="text-md text-gray-600 pr-2">@columnNames[18]:</label>
+                    <p>@editLicenseModel.CreatedDate</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsEditMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="edit-license-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+}
+
+@code {
+    private DateTime MinDate { get; set; } = new DateTime(2021, 1, 1);
+    private DateTime MaxDate { get; set; } = new DateTime(2031, 1, 1);
+    private DateTime? StartDate { get; set; } = DateTime.Now;
+    private DateTime? EndDate { get; set; } = DateTime.Now;
+    private string dateFormat = string.Format("{0} {1}", CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern, CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern);
+    private bool isRendered = false;
+    private List<CLicense> licenseList = new();
+    private List<string> columnNames = new()
+        {
+            "ID", // 0
+            "Brand_ID", // 1
+            "Package_ID", // 2
+            "License_Key", // 3
+            "Source_ID", // 4
+            "Ref_License", // 5
+            "Description", // 6
+            "Amount", // 7
+            "Start_Date", // 8
+            "End_Date", // 9
+            "Number_Of_Days", // 10
+            "Status", // 11
+            "Currency_ID", // 12
+            "Used_By", // 13
+            "Used_Date", // 14
+            "Modified_By", // 15
+            "Modified_Date", // 16
+            "Created_By", // 17
+            "Created_Date", // 18
+            "Actions" // 19
+        };
+    private ModalMode _modalMode { get; set; } = ModalMode.DEFAULT;
+    private LicenseModel licenseModel = new();
+    private CLicense selectedItem = new();
+    private bool IsEditMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.EDIT)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.EDIT;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private bool IsAddMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.ADD)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.ADD;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private void ResetModalMode()
+    {
+        _modalMode = ModalMode.DEFAULT;
+    }
+
+    private void StartEditRow(CLicense aLicense)
+    {
+        selectedItem = aLicense;
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            licenseModel = new()
+                {
+                    ID = aLicense.GetID(),
+                    BrandID = aLicense.GetBrandID(),
+                    PackageID = aLicense.GetPackageID(),
+                    LicenseKey = aLicense.GetLicenseKey(),
+                    SourceID = aLicense.GetSourceID(),
+                    RefLicense = aLicense.GetRefLicense(),
+                    Description = aLicense.GetDescription(),
+                    Amount = aLicense.GetAmount(),
+                    StartDate = aLicense.GetStartDate(),
+                    EndDate = aLicense.GetEndDate(),
+                    NumberOfDays = aLicense.GetNumberOfDays(),
+                    Status = aLicense.GetStatus(),
+                    CurrencyID = aLicense.GetCurrencyID(),
+                    UsedBy = aLicense.GetUsedBy(),
+                    UsedDate = aLicense.GetUsedDate(),
+                    ModifiedBy = aLicense.GetModifiedBy(),
+                    ModifiedDate = aLicense.GetModifiedDate(),
+                    CreatedBy = aLicense.GetCreatedBy(),
+                    CreatedDate = aLicense.GetCreatedDate()
+                    
+                };
+            IsEditMode = true;
+        }
+    }
+    private void HandleValidEditSubmit()
+    {
+        LicenseEntity licenseEntity = new LicenseEntity(licenseModel);
+        CLicense.Update(new CLicense(licenseEntity));
+        selectedItem.SyncData();
+        ResetModalMode();
+    }
+
+    private void StartAddRow()
+    {
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            licenseModel = new();
+            IsAddMode = true;
+        }
+    }
+
+    private void HandleValidAddSubmit()
+    {
+        LicenseEntity licenseEntity = new LicenseEntity(licenseModel);
+        CLicense aLicense = CLicense.Add(new CLicense(licenseEntity));
+        if (aLicense != null)
+        {
+            licenseList.Add(aLicense);
+        }
+        ResetModalMode();
+    }
+
+    private void DeleteLicense(CLicense aLicense)
+    {
+        licenseList.Remove(aLicense);
+        CLicense.Delete(aLicense.GetID());
+    }
+
+    private Task<List<CLicense>> GetlicenseListAsync()
+    {
+        return Task.FromResult(CLicense.List());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isRendered = true;
+        licenseList = await GetlicenseListAsync();
+        licenseList.Sort((x, y) =>
+        {
+            var xId = x.GetID();
+            var yId = y.GetID();
+            if (xId == yId) return 0;
+            if (xId > yId) return 1;
+            return -1;
+        });
+    }
+}

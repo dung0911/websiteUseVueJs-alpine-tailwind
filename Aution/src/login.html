@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/dist/output.css" rel="stylesheet" />
+</head>
+<style>
+    .bgColor {
+        background-color: #f3f3f3;
+    }
+
+    .textColor {
+        color: #7ab45d;
+    }
+
+    .bgBtn {
+        background-color: #7ab45d;
+    }
+
+    .borderBtn {
+        border-color: #7ab45d;
+    }
+
+    .bgFooter {
+        background-color: #1b1b1b;
+        color: #565656;
+    }
+</style>
+<style>
+    .main {
+        display: block;
+        position: relative;
+
+        cursor: pointer;
+
+
+    }
+
+    .main input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #7ab45d;
+
+    }
+
+    .main:hover input~.checkmark {
+        background-color: orange;
+    }
+
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    .main input:checked~.checkmark:after {
+        display: block;
+    }
+
+    .main .checkmark:after {
+        left: 9px;
+        top: 1px;
+        width: 9px;
+        height: 20px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+</style>
+<style>
+    .filter {
+        -webkit-filter: brightness(0) invert(1);
+        filter: brightness(0) invert(1);
+    }
+</style>
+
+<body class=" bgColor">
+    <div class="fixed z-20 flex flex-wrap justify-between p-2 border-b w-full bg-white">
+        <a href="">
+            <img src="https://app.auction.io/css/images/logo.svg" width="85%" alt="" />
+        </a>
+        <button class="lg:hidden px-2 rounded-md border-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <ul class="hidden lg:flex items-center">
+            <li class="mx-2">
+                <a href="" class="text-gray-600 text-sm hover:text-gray-300">How It Works</a>
+            </li>
+            <li class="mx-2">
+                <a href="" class="text-gray-600 text-sm hover:text-gray-300">Help Center</a>
+            </li>
+            <li class="mx-2">
+                <a href="" class="hover:text-gray-300">
+                    <button
+                        class="uppercase px-4 py-2 text-white bgBtn rounded-sm hover:text-black hover:bg-white border borderBtn duration-700">
+                        register / login
+                    </button>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="relative py-32 bgColor">
+        <div class="relative container m-auto px-6">
+            <div class="m-auto lg:w-1/2">
+                <div class="container mx-auto bg-white p-10 rounded-2xl">
+                    <div class="flex justify-between p-2">
+                        <button class="border-b-2 borderBtn w-full uppercase pb-2 textColor">login</button>
+                        <button class="border-b-2 border-gray-600 w-full uppercase pb-2 textColor">register</button>
+                    </div>
+                    <div class="">
+                        <div class="text-center">
+                            <h1 class="pt-10 pb-8 text-2xl font-bold">Log in to your store</h1>
+                        </div>
+                        <form action="">
+                            <input class="w-full py-4 px-4 border-gray-400 border rounded-md my-4" type="email"
+                                placeholder="Email Address"><br>
+                            <input class="w-full py-4 px-4 border-gray-400 border rounded-md my-4" type="password"
+                                placeholder="Password">
+
+                        </form>
+                    </div>
+                    <div class="flex justify-between mt-5 mb-12">
+                        <label class="main">
+                            <input type="checkbox" checked="checked">
+                            <span class="checkmark"></span>
+                            <span class="pl-8">Remember Me?</span>
+                        </label>
+                        <a href="" class="font-bold text-sm">Forgot Password?</a>
+                    </div>
+                    <div class="my-6 flex justify-end">
+                        <button class="px-12 py-4 text-white bgBtn rounded-md">LOG IN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-black w-full text-white">
+        <div class="container mx-auto w-full px-6 lg:w-2/3 py-8">
+            <div class="lg:flex justify-between pb-6">
+                <div class="pb-6 border-b border-gray-500 lg:border-none">
+                    <div class="flex pt-4 pb-10 justify-center">
+                        <li class="mx-5 list-none"><a href="">Training</a></li>
+                        <li class="mx-5 list-none"><a href="">Porfolio</a></li>
+                        <li class="mx-5 list-none"><a href="">Blog</a></li>
+                        <li class="mx-5 list-none"><a href="">Services</a></li>
+                    </div>
+                    <div class="bg-white mx-auto text-black w-5/6">
+                        <div class="flex p-2">
+                            <a href="" class="mr-1">
+                                <img src="https://scontent.fsgn5-15.fna.fbcdn.net/v/t39.30808-1/247974357_3129956213943593_4638069655437252167_n.jpg?stp=cp0_dst-jpg_p80x80&_nc_cat=111&ccb=1-5&_nc_sid=dbb9e7&_nc_ohc=yr5iqF4lGcwAX-KshVe&_nc_ht=scontent.fsgn5-15.fna&edm=AEDRbFQEAAAA&oh=00_AT-UH_1QlPYh65-rqmikwyK7oLDNQFHbXP2NzJvtEilsmw&oe=6252A587"
+                                    class="border border-black w-14" alt="">
+                            </a>
+                            <div class="">
+                                <a href="" class="hover:underline ml-2 pb-2 text-blue-700">Auctionsoftware.com</a>
+                                <div class="flex pt-1">
+                                    <button class="flex p-1 rounded-sm bg-gray-100 border-b">
+                                        <img src="/images/facebook.png" class="w-4" alt="">
+                                        <span class="text-xs pl-1 font-bold text-gray-600">Thích Trang</span>
+                                    </button>
+                                    <span class="text-xs ml-1 mt-1">11K lượt thích</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <img src="https://app.auction.io/css/images/logo.svg" class="filter mx-auto lg:pl-64" alt="">
+                    <address class="text-center lg:text-right">
+                        972-200-5516<br>
+                        US Office Address<br>
+                        DevelopScripts LLC<br>
+                        1221 West Campbell Road, Suite 181,<br>
+                        Richardson, Texas 75080
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bgFooter text-center py-4">
+        <p>@2021 by Auctionsoftware.com</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,405 @@
+@page "/manage-activity"
+<PageTitle Title="CActivity - Manage Activity" />
+
+@using Jexpa.Core
+@using Jexpa.Core.Legacy
+@using Jexpa.Model.Entity
+@using WebSample.Data
+@using WebSample.Components
+
+<h1>CActivity</h1>
+
+<p>This component demonstrates managing CActivity.</p>
+
+@if (!isRendered)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @if (activityList.Count <= 0)
+    {
+        <p class="text-red-500">There is no data to display.</p>
+    }
+    <div class="float-right pr-2 pb-2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-1 px-2 border border-blue-500 rounded"
+            @onclick="() => StartAddRow()">
+            <span class="text-white"><i class="fas fa-plus"></i></span>
+        </button>
+    </div>
+
+    <TableTemplate Columns="columnNames" Items="activityList" Context="activity" TItem="CActivity">
+        <RowTemplate>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[0]</span>@activity.GetID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[1]</span>@activity.GetUserID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[2]</span>@activity.GetDeviceID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[3]</span>@activity.GetTrackingActionID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[4]</span>@activity.GetURL()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[5]</span>@activity.GetIPAddress()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[6]</span>@activity.GetOS()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[7]</span>@activity.GetBrowserName()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[8]</span>@activity.GetBrowserVersion()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[9]</span>@activity.GetRequestFromMobile()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[10]</span>@activity.GetUserAgent()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[11]</span>@activity.GetLocation()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[12]</span>@activity.GetLatitude()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[13]</span>@activity.GetLongitude()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[14]</span>@activity.GetDescription()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[15]</span>@activity.GetCreatedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[16]</span>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                    @onclick="() => StartEditRow(activity)">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                    @onclick="() => DeleteActivity(activity)">
+                    <span class="oi oi-delete"></span>
+                </button>
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+    <ModalTemplate ModalTitle="Add Activity" IsModalVisible="IsAddMode" OnCloseCallBack="ResetModalMode" Item="@activityModel" Context="addActivityModel">
+        <BodyTemplate>
+            <EditForm id="add-activity-form" Model="@addActivityModel" class="w-[90%]" OnValidSubmit="@HandleValidAddSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="number" id="new@(columnNames[1])" name="@columnNames[1]" class="" @bind-value="activityModel.UserID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="number" id="new@(columnNames[2])" name="@columnNames[2]" class="" @bind-value="activityModel.DeviceID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="number" id="new@(columnNames[3])" name="@columnNames[3]" class="" @bind-value="activityModel.TrackingActionID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="text" id="new@(columnNames[4])" name="@columnNames[4]" class="" @bind-value="activityModel.URL" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="new@(columnNames[5])" name="@columnNames[5]" class="" @bind-value="activityModel.IPAddress" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <input type="number" id="new@(columnNames[6])" name="@columnNames[6]" class="" @bind-value="activityModel.OS" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <input type="text" id="new@(columnNames[7])" name="@columnNames[7]" class="" @bind-value="activityModel.BrowserName" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[8])" class="text-md text-gray-600 pr-2">@columnNames[8]:</label>
+                    <input type="text" id="new@(columnNames[8])" name="@columnNames[8]" class="" @bind-value="activityModel.BrowserVersion" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[9])" class="text-md text-gray-600 pr-2">@columnNames[9]:</label>
+                    <JexpaCheckBox IsChecked="@activityModel.RequestFromMobile" OnChangeCallBack="(value) => {activityModel.RequestFromMobile = value;}" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[10])" class="text-md text-gray-600">@columnNames[10]:</label>
+                    <input type="text" id="new@(columnNames[10])" name="@columnNames[10]" class="" @bind-value="activityModel.UserAgent" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[11])" class="text-md text-gray-600">@columnNames[11]:</label>
+                    <input type="text" id="new@(columnNames[11])" name="@columnNames[11]" class="" @bind-value="activityModel.Location" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[12])" class="text-md text-gray-600">@columnNames[12]:</label>
+                    <input type="number" step=any id="new@(columnNames[12])" name="@columnNames[12]" class="" @bind-value="activityModel.Latitude" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[13])" class="text-md text-gray-600">@columnNames[13]:</label>
+                    <input type="number" step=any id="new@(columnNames[13])" name="@columnNames[13]" class="" @bind-value="activityModel.Longitude" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[14])" class="text-md text-gray-600">@columnNames[14]:</label>
+                    <input type="text" id="new@(columnNames[14])" name="@columnNames[14]" class="" @bind-value="activityModel.Description" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[15])" class="text-md text-gray-600 pl-2">@columnNames[15]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsAddMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="add-activity-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+
+    <ModalTemplate ModalTitle="Edit Activity" IsModalVisible="IsEditMode" OnCloseCallBack="ResetModalMode" Item="@activityModel" Context="editActivityModel">
+        <BodyTemplate>
+            <EditForm id="edit-activity-form" Model="@editActivityModel" class="w-[90%]" OnValidSubmit="@HandleValidEditSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>@activityModel.ID</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="number" id="edit@(columnNames[1])" name="edit@(columnNames[1])" class="" @bind-value="activityModel.UserID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="number" id="edit@(columnNames[2])" name="edit@(columnNames[2])" class="" @bind-value="activityModel.DeviceID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="number" id="edit@(columnNames[3])" name="edit@(columnNames[3])" class="" @bind-value="activityModel.TrackingActionID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="text" id="edit@(columnNames[4])" name="edit@(columnNames[4])" class="" @bind-value="activityModel.URL" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="edit@(columnNames[5])" name="edit@(columnNames[5])" class="" @bind-value="activityModel.IPAddress" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <input type="text" id="edit@(columnNames[6])" name="edit@(columnNames[6])" class="" @bind-value="activityModel.OS" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <input type="text" id="edit@(columnNames[7])" name="edit@(columnNames[7])" class="" @bind-value="activityModel.BrowserName" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[8])" class="text-md text-gray-600 pr-2">@columnNames[8]:</label>
+                    <input type="text" id="edit@(columnNames[8])" name="edit@(columnNames[8])" class="" @bind-value="activityModel.BrowserVersion" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[9])" class="text-md text-gray-600 pr-2">@columnNames[9]:</label>
+                    <JexpaCheckBox IsChecked="@activityModel.RequestFromMobile" OnChangeCallBack="(value) => { activityModel.RequestFromMobile = value; }" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[10])" class="text-md text-gray-600 pr-2">@columnNames[10]:</label>
+                    <input type="text" id="edit@(columnNames[10])" name="edit@(columnNames[10])" class="" @bind-value="activityModel.UserAgent" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[11])" class="text-md text-gray-600">@columnNames[11]:</label>
+                    <input type="text" id="edit@(columnNames[11])" name="edit@(columnNames[11])" class="" @bind-value="activityModel.Location" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[12])" class="text-md text-gray-600 pr-2">@columnNames[12]:</label>
+                    <input type="number" step=any id="edit@(columnNames[12])" name="edit@(columnNames[12])" class="" @bind-value="activityModel.Latitude" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[13])" class="text-md text-gray-600 pr-2">@columnNames[13]:</label>
+                    <input type="number" step=any id="edit@(columnNames[13])" name="edit@(columnNames[13])" class="" @bind-value="activityModel.Longitude" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[14])" class="text-md text-gray-600">@columnNames[14]:</label>
+                    <input type="number" id="edit@(columnNames[14])" name="edit@(columnNames[14])" class="" @bind-value="activityModel.Description" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[15])" class="text-md text-gray-600">@columnNames[15]:</label>
+                    <p>This field is auto-updated by the system.</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsEditMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="edit-activity-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+}
+
+@code {
+    private bool isRendered = false;
+    private List<CActivity> activityList = new();
+    private List<string> columnNames = new()
+        {
+            "ID", // 0
+            "User_ID", // 1
+            "Device_ID", // 2
+            "Tracking_Action_ID", // 3
+            "URL", // 4
+            "IP_Address", // 5
+            "OS", // 6
+            "Browser_Name", // 7
+            "Browser_Version", // 8
+            "Request_From_Mobile", // 9
+            "User_Agent", // 10
+            "Location", // 11
+            "Latitude", // 12
+            "Longitude", // 13
+            "Description", // 14
+            "Created_Date", // 15
+            "Actions" // 16
+        };
+    private ModalMode _modalMode { get; set; } = ModalMode.DEFAULT;
+    private ActivityEntity activityModel = new();
+    private CActivity selectedItem = new();
+    private bool IsEditMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.EDIT)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.EDIT;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private bool IsAddMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.ADD)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.ADD;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private void ResetModalMode()
+    {
+        _modalMode = ModalMode.DEFAULT;
+    }
+
+    private void StartEditRow(CActivity anActivity)
+    {
+        selectedItem = anActivity;
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            activityModel = new()
+                {
+                    ID = anActivity.GetID(),
+                    UserID = anActivity.GetUserID(),
+                    DeviceID = anActivity.GetDeviceID(),
+                    TrackingActionID = anActivity.GetTrackingActionID(),
+                    URL = anActivity.GetURL(),
+                    IPAddress = anActivity.GetIPAddress(),
+                    OS = anActivity.GetOS(),
+                    BrowserName = anActivity.GetBrowserName(),
+                    BrowserVersion = anActivity.GetBrowserVersion(),
+                    RequestFromMobile = anActivity.GetRequestFromMobile(),
+                    UserAgent = anActivity.GetUserAgent(),
+                    Location = anActivity.GetLocation(),
+                    Latitude = anActivity.GetLatitude(),
+                    Longitude = anActivity.GetLongitude(),
+                    Description = anActivity.GetDescription()
+                };
+            IsEditMode = true;
+        }
+    }
+    private void HandleValidEditSubmit()
+    {
+        CActivity.Update(new CActivity(activityModel));
+        selectedItem.SyncData();
+        ResetModalMode();
+    }
+
+    private void StartAddRow()
+    {
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            activityModel = new ActivityEntity();
+            IsAddMode = true;
+        }
+    }
+
+    private void HandleValidAddSubmit()
+    {
+        CActivity anActivity = CActivity.Add(new CActivity(activityModel));
+        if (anActivity != null)
+        {
+            activityList.Add(anActivity);
+        }
+        ResetModalMode();
+    }
+
+    private void DeleteActivity(CActivity anActivity)
+    {
+        activityList.Remove(anActivity);
+        CActivity.Delete(anActivity.GetID());
+    }
+
+    private Task<List<CActivity>> GetactivityListAsync()
+    {
+        return Task.FromResult(CActivity.List());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isRendered = true;
+        activityList = await GetactivityListAsync();
+        activityList.Sort((x, y) =>
+        {
+            var xId = x.GetID();
+            var yId = y.GetID();
+            if (xId == yId) return 0;
+            if (xId > yId) return 1;
+            return -1;
+        });
+    }
+}

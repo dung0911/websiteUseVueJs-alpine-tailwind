@@ -1,0 +1,44 @@
+<label class="inline-flex items-center cursor-pointer" @onclick="OnChange">
+    <span class="relative">
+        <span class="block w-10 h-6 bg-gray-400 rounded-full shadow-inner"></span>
+        <span class="absolute block w-4 h-4 mt-1 ml-1 rounded-full shadow inset-y-0 left-0 focus-within:shadow-outline transition-transform duration-300 ease-in-out @CheckStyle">
+            <input type="checkbox" class="absolute opacity-0 w-0 h-0" bind="@isChecked" />
+        </span>
+    </span>
+</label>
+
+
+@code {
+    private bool isChecked;
+    private string CheckStyle
+    {
+        get
+        {
+            if (IsChecked?? false)
+                return "bg-purple-600 transform translate-x-full";
+            return "bg-white";
+        }
+    }
+    [Parameter]
+    public bool? IsChecked { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<bool?> OnChangeCallBack { get; set; }
+
+    protected override void OnInitialized()
+    {
+        isChecked = IsChecked?? false;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        isChecked = IsChecked?? false;
+    }
+
+    private async Task OnChange()
+    {
+        IsChecked = !isChecked;
+        await Task.Delay(300);
+        await OnChangeCallBack.InvokeAsync(IsChecked);
+    }
+}

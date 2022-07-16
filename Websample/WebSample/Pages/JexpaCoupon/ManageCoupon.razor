@@ -1,0 +1,375 @@
+@page "/manage-coupon"
+<PageTitle Title="CCoupon - Manage Coupon" />
+
+@using System.Globalization
+@using WebSample.Data
+@using WebSample.Components
+@using Jexpa.Core
+@using Jexpa.Core.Legacy
+@using Jexpa.Model.Entity
+@using BlazorDateRangePicker
+
+<h1>CCoupon</h1>
+
+<p>This component demonstrates managing CCoupon.</p>
+
+@if (!isRendered)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="float-right pr-2 pb-2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-1 px-2 border border-blue-500 rounded"
+            @onclick="() => StartAddRow()">
+            <span class="text-white"><i class="fas fa-plus"></i></span>
+        </button>
+    </div>
+
+    <TableTemplate Columns="columnNames.Where((item, index) => index < 15 || index == columnNames.Count - 1)" Items="couponList" Context="coupon" TItem="CCoupon">
+        <RowTemplate>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[0]</span>@coupon.GetID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[1]</span>@coupon.GetBrandID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[2]</span>@coupon.GetCouponCode()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[3]</span>@coupon.GetCouponPercent()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[4]</span>@coupon.GetQuantity()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[5]</span>@coupon.GetStartDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[6]</span>@coupon.GetEndDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[7]</span>@coupon.GetAutoApplyToPrice()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[8]</span>@coupon.GetDescription()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[9]</span>@coupon.GetStatus()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[10]</span>@coupon.GetModifiedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[11]</span>@coupon.GetModifiedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[12]</span>@coupon.GetCreatedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[13]</span>@coupon.GetCreatedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[14]</span>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                    @onclick="() => StartEditRow(coupon)">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                    @onclick="() => DeleteCoupon(coupon)">
+                    <span class="oi oi-delete"></span>
+                </button>
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+    <ModalTemplate ModalTitle="Add Coupon" IsModalVisible="IsAddMode" OnCloseCallBack="ResetModalMode" Item="@couponModel" Context="addCouponModel">
+        <BodyTemplate>
+            <EditForm id="add-coupon-form" Model="@addCouponModel" class="w-[90%]" OnValidSubmit="@HandleValidAddSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="number" id="new@(columnNames[1])" name="@columnNames[1]" class="" @bind-value="@addCouponModel.BrandID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="text" id="new@(columnNames[2])" name="@columnNames[2]" class="" @bind-value="@addCouponModel.CouponCode" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="number" step=any id="new@(columnNames[3])" name="@columnNames[3]" class="" @bind-value="@addCouponModel.CouponPercent" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="number" id="new@(columnNames[4])" name="@columnNames[4]" class="" @bind-value="@addCouponModel.Quantity" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label class="text-md text-gray-600 pr-2">Coupon valid date range:</label>
+                    <DateRangePicker DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true" placeholder="Select a date range..."
+                        @bind-StartDate="@addCouponModel.UIStartDate" @bind-EndDate="@addCouponModel.UIEndDate"/>
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <JexpaCheckBox IsChecked="addCouponModel.AutoApplyToPrice" OnChangeCallBack="(value) => {addCouponModel.AutoApplyToPrice = value;}" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[8])" class="text-md text-gray-600">@columnNames[8]:</label>
+                    <input type="text" id="new@(columnNames[8])" name="@columnNames[8]" class="" @bind-value="@addCouponModel.Description" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[9])" class="text-md text-gray-600">@columnNames[9]:</label>
+                    <input type="number" id="new@(columnNames[9])" name="@columnNames[9]" class="" @bind-value="@addCouponModel.Status" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[10])" class="text-md text-gray-600">@columnNames[10]:</label>
+                    <input type="number" id="new@(columnNames[10])" name="@columnNames[10]" class="" @bind-value="@addCouponModel.ModifiedBy" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[11])" class="text-md text-gray-600 pr-2">@columnNames[11]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[12])" class="text-md text-gray-600">@columnNames[12]:</label>
+                    <input type="number" id="new@(columnNames[12])" name="@columnNames[12]" class="" @bind-value="@addCouponModel.CreatedBy" />
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="new@(columnNames[13])" class="text-md text-gray-600 pr-2">@columnNames[13]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsAddMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="add-coupon-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+
+    <ModalTemplate ModalTitle="Edit Coupon" IsModalVisible="IsEditMode" OnCloseCallBack="ResetModalMode" Item="@couponModel" Context="editCouponModel">
+        <BodyTemplate>
+            <EditForm id="edit-coupon-form" Model="@editCouponModel" class="w-[90%]" OnValidSubmit="@HandleValidEditSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[0])" class="text-md text-gray-600 pr-2">@columnNames[0]:</label>
+                    <p>@editCouponModel.ID</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="number" id="edit@(columnNames[1])" name="edit@(columnNames[1])" class="" @bind-value="@editCouponModel.BrandID" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="number" id="edit@(columnNames[2])" name="edit@(columnNames[2])" class="" @bind-value="@editCouponModel.CouponCode" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="number" step=any id="edit@(columnNames[3])" name="edit@(columnNames[3])" class="" @bind-value="@editCouponModel.CouponPercent" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="number" id="edit@(columnNames[4])" name="edit@(columnNames[4])" class="" @bind-value="@editCouponModel.Quantity" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label class="text-md text-gray-600 pr-2">Coupon valid date range:</label>
+                    <DateRangePicker DateFormat="@dateFormat" TimePicker="true" TimePicker24Hour="true" TimePickerSeconds="true" placeholder="Select a date range..."
+                        @bind-StartDate="@editCouponModel.UIStartDate" @bind-EndDate="@editCouponModel.UIEndDate"/>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[7])" class="text-md text-gray-600 pr-2">@columnNames[7]:</label>
+                    <JexpaCheckBox IsChecked="editCouponModel.AutoApplyToPrice" OnChangeCallBack="(value) => {editCouponModel.AutoApplyToPrice = value;}" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[8])" class="text-md text-gray-600">@columnNames[8]:</label>
+                    <input type="text" id="edit@(columnNames[8])" name="edit@(columnNames[8])" class="" @bind-value="@editCouponModel.Description" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[9])" class="text-md text-gray-600">@columnNames[9]:</label>
+                    <input type="number" id="edit@(columnNames[9])" name="edit@(columnNames[9])" class="" @bind-value="@editCouponModel.Status" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[10])" class="text-md text-gray-600">@columnNames[10]:</label>
+                    <input type="number" id="edit@(columnNames[10])" name="edit@(columnNames[10])" class="" @bind-value="@editCouponModel.ModifiedBy" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[11])" class="text-md text-gray-600">@columnNames[11]:</label>
+                    <p>This field is auto-updated.</p>
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[12])" class="text-md text-gray-600 pr-2">@columnNames[12]:</label>
+                    <p>@editCouponModel.CreatedBy</p>
+                </div>
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[13])" class="text-md text-gray-600 pr-2">@columnNames[13]:</label>
+                    <p>@editCouponModel.CreatedDate</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsEditMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="edit-coupon-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+}
+
+@code {
+    private string dateFormat = string.Format("{0} {1}", CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern, CultureInfo.CurrentCulture.DateTimeFormat.LongTimePattern);
+    private bool isRendered = false;
+    private List<CCoupon> couponList = new();
+    private List<string> columnNames = new()
+        {
+            "ID", // 0
+            "Brand_ID", // 1
+            "Coupon_Code", // 2
+            "Coupon_Percent", // 3
+            "Quantity", // 4
+            "Start_Date", // 5
+            "End_Date", // 6
+            "Auto_Apply_To_Price", // 7
+            "Description", // 8
+            "Status", // 9
+            "Modified_By", // 10
+            "Modified_Date", // 11
+            "Created_By", // 12
+            "Created_Date", // 13
+            "Actions" // 14
+        };
+    private ModalMode _modalMode { get; set; } = ModalMode.DEFAULT;
+    private CouponModel couponModel = new();
+    private CCoupon selectedItem = new();
+    private bool IsEditMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.EDIT)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.EDIT;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private bool IsAddMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.ADD)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.ADD;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private void ResetModalMode()
+    {
+        _modalMode = ModalMode.DEFAULT;
+    }
+
+    private void StartEditRow(CCoupon aCoupon)
+    {
+        selectedItem = aCoupon;
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            couponModel = new()
+                {
+                    ID = aCoupon.GetID(),
+                    BrandID = aCoupon.GetBrandID(),
+                    CouponCode = aCoupon.GetCouponCode(),
+                    CouponPercent = aCoupon.GetCouponPercent(),
+                    Quantity = aCoupon.GetQuantity(),
+                    StartDate = aCoupon.GetStartDate(),
+                    EndDate = aCoupon.GetEndDate(),
+                    AutoApplyToPrice = aCoupon.GetAutoApplyToPrice(),
+                    Description = aCoupon.GetDescription(),
+                    Status = aCoupon.GetStatus(),
+                    ModifiedBy = aCoupon.GetModifiedBy(),
+                    ModifiedDate = aCoupon.GetModifiedDate(),
+                    CreatedBy = aCoupon.GetCreatedBy(),
+                    CreatedDate = aCoupon.GetCreatedDate()
+                };
+            IsEditMode = true;
+        }
+    }
+    private void HandleValidEditSubmit()
+    {
+        CouponEntity couponEntity = new CouponEntity(couponModel);
+        CCoupon.Update(new CCoupon(couponEntity));
+        selectedItem.SyncData();
+        ResetModalMode();
+    }
+
+    private void StartAddRow()
+    {
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            couponModel = new();
+            IsAddMode = true;
+        }
+    }
+
+    private void HandleValidAddSubmit()
+    {
+        CouponEntity couponEntity = new CouponEntity(couponModel);
+        CCoupon aCoupon = CCoupon.Add(new CCoupon(couponEntity));
+        if (aCoupon != null)
+        {
+            couponList.Add(aCoupon);
+        }
+        ResetModalMode();
+    }
+
+    private void DeleteCoupon(CCoupon aCoupon)
+    {
+        couponList.Remove(aCoupon);
+        CCoupon.Delete(aCoupon.GetID());
+    }
+
+    private Task<List<CCoupon>> GetcouponListAsync()
+    {
+        return Task.FromResult(CCoupon.List());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        isRendered = true;
+        couponList = await GetcouponListAsync();
+        couponList.Sort((x, y) =>
+        {
+            var xId = x.GetID();
+            var yId = y.GetID();
+            if (xId == yId) return 0;
+            if (xId > yId) return 1;
+            return -1;
+        });
+    }
+}

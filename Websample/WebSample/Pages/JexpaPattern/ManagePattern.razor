@@ -1,0 +1,352 @@
+@page "/manage-patterns"
+<PageTitle Title="CPattern - Manage Patterns" />
+
+@using Jexpa.Core
+@using Jexpa.Core.Legacy
+@using Jexpa.Model.Entity
+@using WebSample.Data
+@using WebSample.Components
+
+<h1>CPattern</h1>
+
+<p>This component demonstrates fetching users from CPattern.</p>
+
+@if (patternList.Count <= 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="float-right pr-2 pb-2">
+        <button class="bg-blue-500 hover:bg-blue-700 text-xs text-white font-bold py-1 px-2 border border-blue-500 rounded"
+            @onclick="() => StartAddRow()">
+            <span class="text-white"><i class="fas fa-plus"></i></span>
+        </button>
+    </div>
+
+    <TableTemplate Columns="columnNames" Items="patternList" Context="pattern" TItem="CPattern">
+        <RowTemplate>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[0]</span>@pattern.GetID()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[1]</span>@pattern.GetGroupCode()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[2]</span>@pattern.GetCode()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[3]</span>@pattern.GetName()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[4]</span>@pattern.GetStatus()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[5]</span>@pattern.GetClassMapping()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[6]</span>@pattern.GetZOrder()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[7]</span>@pattern.GetModifiedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[8]</span>@pattern.GetModifiedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[9]</span>@pattern.GetCreatedBy()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[10]</span>@pattern.GetCreatedDate()
+            </td>
+            <td class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+                <span class="inline-block w-1/3 md:hidden font-bold">@columnNames[11]</span>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded"
+                    @onclick="() => StartEditRow(pattern)">
+                    <span class="oi oi-pencil"></span>
+                </button>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded"
+                    @onclick="() => DeletePattern(pattern)">
+                    <span class="oi oi-delete"></span>
+                </button>
+            </td>
+        </RowTemplate>
+    </TableTemplate>
+
+    <ModalTemplate ModalTitle="Add Pattern" IsModalVisible="IsAddMode" OnCloseCallBack="ResetModalMode" Item="@patternModel" Context="addPatternModel">
+        <BodyTemplate>
+            <EditForm id="add-pattern-form" Model="@addPatternModel" class="w-[90%]" OnValidSubmit="@HandleValidAddSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[0])" class="text-md text-gray-600">@columnNames[0]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="text" id="new@(columnNames[1])" name="@columnNames[1]" class="" @bind-value="patternModel.GroupCode" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="text" id="new@(columnNames[2])" name="@columnNames[2]" class="" @bind-value="patternModel.Code" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="text" id="new@(columnNames[3])" name="@columnNames[3]" class="" @bind-value="patternModel.Name" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="number" id="new@(columnNames[4])" name="@columnNames[4]" class="" @bind-value="patternModel.Status" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="new@(columnNames[5])" name="@columnNames[5]" class="" @bind-value="patternModel.ClassMapping" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <input type="number" id="new@(columnNames[6])" name="@columnNames[6]" class="" @bind-value="patternModel.ZOrder" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[7])" class="text-md text-gray-600">@columnNames[7]:</label>
+                    <input type="number" id="new@(columnNames[7])" name="@columnNames[7]" class="" @bind-value="patternModel.ModifiedBy" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[8])" class="text-md text-gray-600">@columnNames[8]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[9])" class="text-md text-gray-600">@columnNames[9]:</label>
+                    <input type="number" id="new@(columnNames[9])" name="@columnNames[9]" class="" @bind-value="patternModel.CreatedBy" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="new@(columnNames[10])" class="text-md text-gray-600">@columnNames[10]:</label>
+                    <p>This field is auto-generated.</p>
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsAddMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="add-pattern-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+
+    <ModalTemplate ModalTitle="Edit Pattern" IsModalVisible="IsEditMode" OnCloseCallBack="ResetModalMode" Item="@patternModel" Context="editPatternModel">
+        <BodyTemplate>
+            <EditForm id="edit-pattern-form" Model="@editPatternModel" class="w-[90%]" OnValidSubmit="@HandleValidEditSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                @*
+                    "ID", // 0
+                    "Group_Code", // 1
+                    "Code", // 2
+                    "Name", // 3
+                    "Status", // 4
+                    "Class_Mapping", // 5
+                    "ZOrder", // 6
+                    "Modified_By", // 7
+                    "Modified_Date", // 8
+                    "Created_By", // 9
+                    "Created_Date", // 10
+                    "Actions" // 11
+                *@
+                <div class="flex flex-row pb-2">
+                    <label for="edit@(columnNames[0])" class="text-md text-gray-600">@columnNames[0] - Readonly:</label>
+                    <p>@patternModel.ID</p>
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[1])" class="text-md text-gray-600">@columnNames[1]:</label>
+                    <input type="text" id="edit@(columnNames[1])" name="edit@(columnNames[1])" class="" @bind-value="patternModel.GroupCode" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[2])" class="text-md text-gray-600">@columnNames[2]:</label>
+                    <input type="text" id="edit@(columnNames[2])" name="edit@(columnNames[2])" class="" @bind-value="patternModel.Code" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[3])" class="text-md text-gray-600">@columnNames[3]:</label>
+                    <input type="text" id="edit@(columnNames[3])" name="edit@(columnNames[3])" class="" @bind-value="patternModel.Name" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[4])" class="text-md text-gray-600">@columnNames[4]:</label>
+                    <input type="number" id="edit@(columnNames[4])" name="edit@(columnNames[4])" class="" @bind-value="patternModel.Status" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[5])" class="text-md text-gray-600">@columnNames[5]:</label>
+                    <input type="text" id="edit@(columnNames[5])" name="edit@(columnNames[5])" class="" @bind-value="patternModel.ClassMapping" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[6])" class="text-md text-gray-600">@columnNames[6]:</label>
+                    <input type="number" id="edit@(columnNames[6])" name="edit@(columnNames[6])" class="" @bind-value="patternModel.ZOrder" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[7])" class="text-md text-gray-600">@columnNames[7]:</label>
+                    <input type="number" id="edit@(columnNames[7])" name="edit@(columnNames[7])" class="" @bind-value="patternModel.ModifiedBy" />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[8])" class="text-md text-gray-600">@columnNames[8]:</label>
+                    <input type="datetime" id="edit@(columnNames[8])" name="edit@(columnNames[8])" class="" @bind-value="patternModel.ModifiedDate" disabled />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[9])" class="text-md text-gray-600">@columnNames[9]:</label>
+                    <input type="number" id="edit@(columnNames[9])" name="edit@(columnNames[9])" class="" @bind-value="patternModel.CreatedBy" disabled />
+                </div>
+                <div class="flex flex-col pb-2">
+                    <label for="edit@(columnNames[10])" class="text-md text-gray-600">@columnNames[10]:</label>
+                    <input type="datetime" id="edit@(columnNames[10])" name="edit@(columnNames[10])" class="" @bind-value="patternModel.CreatedDate" disabled />
+                </div>
+            </EditForm>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="flex justify-end pt-2 space-x-14">
+                <button class="px-4 bg-gray-200 p-3 rounded text-black hover:bg-gray-300 font-semibold" @onclick="() => { IsEditMode = false; }">
+                    Cancel
+                </button>
+                <button type="submit" form="edit-pattern-form"
+                    class="px-4 bg-blue-500 p-3 ml-3 rounded-lg text-white hover:bg-teal-400">
+                    Confirm
+                </button>
+            </div>
+        </FooterTemplate>
+    </ModalTemplate>
+}
+
+@code {
+    private List<CPattern> patternList = new();
+    private List<string> columnNames = new()
+        {
+            "ID", // 0
+            "Group_Code", // 1
+            "Code", // 2
+            "Name", // 3
+            "Status", // 4
+            "Class_Mapping", // 5
+            "ZOrder", // 6
+            "Modified_By", // 7
+            "Modified_Date", // 8
+            "Created_By", // 9
+            "Created_Date", // 10
+            "Actions" // 11
+        };
+
+    private ModalMode _modalMode { get; set; } = ModalMode.DEFAULT;
+    private PatternEntity patternModel = new();
+    private CPattern selectedPattern = new();
+    private bool IsEditMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.EDIT)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.EDIT;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private bool IsAddMode
+    {
+        get
+        {
+            if (_modalMode == ModalMode.ADD)
+                return true;
+            return false;
+        }
+        set
+        {
+            if (value == true)
+                _modalMode = ModalMode.ADD;
+            else
+                _modalMode = ModalMode.DEFAULT;
+        }
+    }
+
+    private void ResetModalMode()
+    {
+        _modalMode = ModalMode.DEFAULT;
+    }
+
+    private void StartEditRow(CPattern cPattern)
+    {
+        selectedPattern = cPattern;
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            patternModel = new()
+            {
+                ID = cPattern.GetID(),
+                GroupCode = cPattern.GetGroupCode(),
+                Code = cPattern.GetCode(),
+                Name = cPattern.GetName(),
+                Status = cPattern.GetStatus(),
+                ClassMapping = cPattern.GetClassMapping(),
+                ZOrder = cPattern.GetZOrder(),
+                ModifiedBy = cPattern.GetModifiedBy(),
+                ModifiedDate = cPattern.GetModifiedDate(),
+                CreatedBy = cPattern.GetCreatedBy(),
+                CreatedDate = cPattern.GetCreatedDate()
+            };
+            IsEditMode = true;
+        }
+    }
+    private void HandleValidEditSubmit()
+    {
+        CPattern.Update(patternModel);
+        selectedPattern.SyncData();
+        ResetModalMode();
+    }
+
+    private void StartAddRow()
+    {
+        patternModel = new PatternEntity();
+        if (_modalMode == ModalMode.DEFAULT)
+        {
+            IsAddMode = true;
+        }
+    }
+
+    private void HandleValidAddSubmit()
+    {
+        patternModel.ID = CPattern.Add(patternModel);
+        if (patternModel.ID >= 0)
+        {
+            CPattern cPattern = new(patternModel);
+            cPattern.SyncData();
+            patternList.Add(cPattern);
+        }
+        ResetModalMode();
+    }
+
+    private void DeletePattern(CPattern aPattern)
+    {
+        patternList.Remove(aPattern);
+        CPattern.Delete(aPattern.GetID());
+    }
+
+    private Task<List<CPattern>> GetPatternListAsync()
+    {
+        return Task.FromResult(CPattern.List());
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        patternList = await GetPatternListAsync();
+        patternList.Sort((x, y) =>
+        {
+            var xId = x.GetID();
+            var yId = y.GetID();
+            if (xId == yId) return 0;
+            if (xId > yId) return 1;
+            return -1;
+        });
+    }
+}

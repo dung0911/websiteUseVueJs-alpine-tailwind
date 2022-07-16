@@ -1,0 +1,47 @@
+@typeparam TItem
+@using System.Diagnostics.CodeAnalysis;
+@using System.Collections.Generic;
+
+<table class="text-xs min-w-full border-collapse block md:table">
+    <thead class="block md:table-header-group">
+        <tr class="border border-grey-500 md:border-none block md:table-row absolute -top-full md:top-auto -left-full md:left-auto md:relative">
+            @if (Columns is not null && Columns.Any())
+            {
+                @foreach (var column in Columns)
+                {
+                    <th class="bg-gray-600 p-2 text-white font-bold md:border md:border-grey-500 text-left block md:table-cell">@column</th>
+                }
+            }
+            else
+            {
+                if(@TableHeader is not null)
+                    @TableHeader
+            }
+        </tr>
+    </thead>
+    <tbody class="block md:table-row-group">
+        @foreach (var item in Items)
+        {
+            if (RowTemplate is not null)
+            {
+                <tr class="bg-gray-300 border border-grey-500 md:border-none block md:table-row">
+                    @RowTemplate(item)
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter, AllowNull]
+    public IEnumerable<string> Columns { get; set; }
+
+    [Parameter]
+    public RenderFragment TableHeader { get; set; }
+
+    [Parameter]
+    public RenderFragment<TItem> RowTemplate { get; set; }
+
+    [Parameter, AllowNull]
+    public IReadOnlyList<TItem> Items { get; set; }
+}
